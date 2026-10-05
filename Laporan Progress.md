@@ -30,5 +30,8 @@ Maya
 Faija
 ![alt text](image-2.png)
 
+Maya
+![alt text](image-4.png)
+
 Tugas Bersama :
 1. Diskusi penentuan tema (Notulen  bersama)
