@@ -14,6 +14,8 @@
 3. Pm membuat inisiasi Project
 4. Konfirmasi bukti
 
+
+
 Tugas Member :
 1. Accept invite
 2. Bukti Konfirmasi
