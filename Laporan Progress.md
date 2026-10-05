@@ -22,6 +22,9 @@ Tugas Member :
 Faija
 ![alt text](image-1.png)
 
+Maya
+![alt text](image-3.png)
+
 3. Clone project
 4. Bukti konfirmasi
 Faija
