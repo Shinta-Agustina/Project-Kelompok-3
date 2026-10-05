@@ -17,10 +17,13 @@
 Tugas Member :
 1. Accept invite
 2. Bukti Konfirmasi
+Faija
+![alt text](image-1.png)
 
 3. Clone project
 4. Bukti konfirmasi
-
+Faija
+![alt text](image-2.png)
 
 Tugas Bersama :
 1. Diskusi penentuan tema (Notulen  bersama)
