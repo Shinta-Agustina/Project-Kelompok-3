@@ -14,7 +14,7 @@
 3. Pm membuat inisiasi Project
 4. Konfirmasi bukti
 
-<video src="Recording-2026-10-11-075121.gif" width="20%"> 
+![alt text](Recording-2026-10-11-075121-1.gif)
 
 Tugas Member :
 1. Accept invite
