@@ -25,6 +25,9 @@ Faija
 Maya
 ![alt text](image-3.png)
 
+Dewi 
+![alt text](image-5.png)
+
 3. Clone project
 4. Bukti konfirmasi
 Faija
@@ -32,6 +35,9 @@ Faija
 
 Maya
 ![alt text](image-4.png)
+
+Dewi
+![alt text](image-6.png)
 
 Tugas Bersama :
 1. Diskusi penentuan tema (Notulen  bersama)
