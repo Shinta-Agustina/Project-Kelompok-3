@@ -42,7 +42,7 @@ Tugas Member :
 
 Dewi Ikrimah
 
-!\[alt text](<c:/Users/user/Pictures/Screenshots/Screenshot 2026-10-07 152014.png>)
+![alt text](image-6.png)
 
 
 
