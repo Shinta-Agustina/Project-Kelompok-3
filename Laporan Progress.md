@@ -22,10 +22,16 @@ Tugas Member :
 Faija
 ![alt text](image-1.png)
 
+Maya
+![alt text](image-3.png)
+
 3. Clone project
 4. Bukti konfirmasi
 Faija
 ![alt text](image-2.png)
+
+Maya
+![alt text](image-4.png)
 
 Tugas Bersama :
 1. Diskusi penentuan tema (Notulen  bersama)
