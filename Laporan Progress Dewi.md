@@ -52,7 +52,7 @@ Dewi Ikrimah
 
 Dewi Ikrimah
 
-!\[alt text](image.png)
+![alt text](image-5.png)
 
 
 
