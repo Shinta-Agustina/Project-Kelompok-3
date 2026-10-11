@@ -14,7 +14,7 @@
 3. Pm membuat inisiasi Project
 4. Konfirmasi bukti
 
-
+<video src="Recording-2026-10-11-075121.gif" width="20%"> 
 
 Tugas Member :
 1. Accept invite
@@ -35,3 +35,4 @@ Maya
 
 Tugas Bersama :
 1. Diskusi penentuan tema (Notulen  bersama)
+Manajemen Kedai Seblak
