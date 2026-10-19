@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   View,
@@ -9,19 +10,50 @@ import {
 import { MaterialIcons, Ionicons } from '@expo/vector-icons';
 import { useKasir } from '../context/KasirContext';
 
-export default function Sidebar({ onClose, isMobile = false }) {
-  const { activeTab, setActiveTab, logout } = useKasir();
+const MENU_KASIR = [
+  {
+    id: 'Kasir',
+    label: 'Kasir',
+    icon: 'point-of-sale',
+  },
+];
 
-  const menuItems = [
-    {
-      id: 'Kasir',
-      label: 'Kasir',
-      icon: (color) => <MaterialIcons name="point-of-sale" size={20} color={color} />,
-    },
-  ];
+const MENU_OWNER = [
+  { id: 'Dashboard', label: 'Dashboard', icon: 'dashboard' },
+  { id: 'Penjualan', label: 'Penjualan', icon: 'trending-up' },
+  { id: 'Stok', label: 'Stok', icon: 'inventory-2' },
+  { id: 'MenuHarga', label: 'Menu & Harga', icon: 'restaurant-menu' },
+  { id: 'Transaksi', label: 'Transaksi', icon: 'receipt-long' },
+  { id: 'Keuangan', label: 'Keuangan', icon: 'account-balance-wallet' },
+];
+
+export default function Sidebar({
+  onClose,
+  isMobile = false,
+  role = 'kasir',
+  activeTab: activeTabProp,
+  setActiveTab: setActiveTabProp,
+  onLogout,
+}) {
+  const kasirContext = useKasir();
+
+  const activeTab =
+    activeTabProp !== undefined
+      ? activeTabProp
+      : kasirContext.activeTab;
+
+  const setActiveTab =
+    setActiveTabProp || kasirContext.setActiveTab;
+
+  const logout = onLogout || kasirContext.logout;
+
+  const menuItems = role === 'owner' ? MENU_OWNER : MENU_KASIR;
 
   const handleSelectTab = (tabId) => {
-    setActiveTab(tabId);
+    if (setActiveTab) {
+      setActiveTab(tabId);
+    }
+
     if (isMobile && onClose) {
       onClose();
     }
@@ -29,15 +61,17 @@ export default function Sidebar({ onClose, isMobile = false }) {
 
   return (
     <View style={[styles.container, isMobile && styles.mobileContainer]}>
-      {/* Brand Header */}
       <View style={styles.brandContainer}>
         <View style={styles.logoRow}>
           <View style={styles.logoBadge}>
             <Text style={styles.logoEmoji}>🍲</Text>
           </View>
+
           <View style={styles.brandTextGroup}>
             <Text style={styles.brandTitle}>Seblak Prasmanan</Text>
-            <Text style={styles.brandSubtitle}>Kasir</Text>
+            <Text style={styles.brandSubtitle}>
+              {role === 'owner' ? 'Owner' : 'Kasir'}
+            </Text>
           </View>
         </View>
 
@@ -48,8 +82,10 @@ export default function Sidebar({ onClose, isMobile = false }) {
         )}
       </View>
 
-      {/* Menu List */}
-      <ScrollView style={styles.menuScroll} contentContainerStyle={styles.menuContent}>
+      <ScrollView
+        style={styles.menuScroll}
+        contentContainerStyle={styles.menuContent}
+      >
         {menuItems.map((item) => {
           const isActive = activeTab === item.id;
           const iconColor = isActive ? '#FFFFFF' : '#DFB8BC';
@@ -57,12 +93,20 @@ export default function Sidebar({ onClose, isMobile = false }) {
           return (
             <TouchableOpacity
               key={item.id}
-              style={[styles.menuItem, isActive && styles.menuItemActive]}
+              style={[
+                styles.menuItem,
+                isActive && styles.menuItemActive,
+              ]}
               onPress={() => handleSelectTab(item.id)}
               activeOpacity={0.7}
             >
               <View style={styles.menuLeft}>
-                {item.icon(iconColor)}
+                <MaterialIcons
+                  name={item.icon}
+                  size={20}
+                  color={iconColor}
+                />
+
                 <Text
                   style={[
                     styles.menuLabel,
@@ -77,14 +121,17 @@ export default function Sidebar({ onClose, isMobile = false }) {
         })}
       </ScrollView>
 
-      {/* Logout button at bottom */}
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.logoutBtn}
           onPress={logout}
           activeOpacity={0.7}
         >
-          <Ionicons name="log-out-outline" size={20} color="#F2A5A5" />
+          <Ionicons
+            name="log-out-outline"
+            size={20}
+            color="#F2A5A5"
+          />
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
       </View>

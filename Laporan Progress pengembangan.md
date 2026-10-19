@@ -105,6 +105,13 @@ Berdasarkan hasil analisis dan rancangan kebutuhan, sistem **Seblak Prasmanan PO
 
 3. Faija :
 4. Dewi :
+3. Faija : Membuat menu dan harga, laporan keuangan, dan transaksi
+Bukti:
+![alt text](<iPhone-14-PRO-localhost-z4tkso_otcz7gq (2).gif>)
+
+4. Dewi : Membuat Dashboard Owner, Laporan Penjualan, dan Stok Bahan
+Bukti:
+![alt text](dashboardowner.gif)
 
 ## Bukti Membangun Layer 
 Bukti Wawancara:
