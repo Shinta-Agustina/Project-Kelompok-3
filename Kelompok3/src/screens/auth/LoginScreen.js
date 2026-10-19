@@ -2,346 +2,328 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
-  TouchableOpacity,
   StyleSheet,
-  ImageBackground,
-  SafeAreaView,
-  Alert,
+  Image,
+  useWindowDimensions,
+  ScrollView,
   KeyboardAvoidingView,
   Platform,
-  ScrollView,
+  Alert,
+  TouchableOpacity,
 } from 'react-native';
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+import CustomInput from '../../components/CustomInput';
+import CustomButton from '../../components/CustomButton';
+import { useKasir } from '../../context/KasirContext';
 
-export default function LoginScreen({ navigation }) {
-  // State untuk Role: 'Kasir' atau 'Owner'
-  const [role, setRole] = useState('Kasir');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+export default function LoginScreen({ onLogin }) {
+  const { width } = useWindowDimensions();
+  const isLargeScreen = width >= 768;
+  const { login } = useKasir();
 
-  // Handler Proses Login
+  const [username, setUsername] = useState('Tata');
+  const [password, setPassword] = useState('kasir123');
+  const [loading, setLoading] = useState(false);
+
   const handleLogin = () => {
     if (!username.trim() || !password.trim()) {
-      Alert.alert('Peringatan', 'Silakan isi username dan password terlebih dahulu!');
+      Alert.alert('Perhatian', 'Silakan masukkan username dan password.');
       return;
     }
 
-    // Simulasi Logika Verifikasi Akses
-    if (role === 'Owner') {
-      // Direct ke Dashboard Owner
-      Alert.alert('Berhasil Login', 'Selamat datang Owner!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.replace('DashboardOwnerScreen'),
-        },
-      ]);
-    } else {
-      // Direct ke Dashboard Kasir
-      Alert.alert('Berhasil Login', 'Selamat datang Kasir!', [
-        {
-          text: 'OK',
-          onPress: () => navigation.replace('DashboardKasirScreen'),
-        },
-      ]);
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      login(username.trim());
+      if (onLogin) {
+        onLogin(username.trim());
+      }
+    }, 400);
+  };
+
+  const handleQuickLogin = () => {
+    setUsername('Tata');
+    setPassword('kasir123');
+    login('Tata');
+    if (onLogin) {
+      onLogin('Tata');
     }
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}
-      >
-        <ScrollView contentContainerStyle={styles.scrollContent}>
-          {/* SISI KIRI / ATAS: Hero Branding Seblak Prasmanan */}
-          <View style={styles.brandSection}>
-            <ImageBackground
-              source={{
-                uri: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=800&auto=format&fit=crop',
-              }}
-              style={styles.backgroundImage}
-              imageStyle={{ borderRadius: 16 }}
-            >
-              <View style={styles.brandOverlay}>
-                <View style={styles.logoRow}>
-                  <MaterialCommunityIcons name="bowl-mix" size={40} color="#fff" />
-                  <View style={{ marginLeft: 10 }}>
-                    <Text style={styles.brandTitle}>Seblak Prasmanan</Text>
-                    <Text style={styles.brandSubtitle}>Sistem Kasir & POS</Text>
-                  </View>
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+      <View style={[styles.mainLayout, isLargeScreen && styles.rowLayout]}>
+        {/* Left Side: Hero Section with Seblak Image */}
+        <View style={[styles.heroSection, isLargeScreen ? styles.heroLarge : styles.heroSmall]}>
+          <Image
+            source={require('../../../assets/images/hero-seblak.png')}
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
+          <View style={styles.heroOverlay}>
+            <View style={styles.heroTopBrand}>
+              <View style={styles.heroLogoRow}>
+                <View style={styles.heroLogoCircle}>
+                  <Text style={styles.heroLogoEmoji}>🍲</Text>
                 </View>
-
-                <View style={styles.quoteBox}>
-                  <Text style={styles.quoteText}>
-                    "Rasa pedas, selalu jadi cerita! 🌶️"
-                  </Text>
+                <View>
+                  <Text style={styles.heroBrandName}>Seblak Prasmanan</Text>
+                  <Text style={styles.heroBrandSub}>Sistem Kasir</Text>
                 </View>
               </View>
-            </ImageBackground>
-          </View>
-
-          {/* SISI KANAN / BAWAH: Form Login */}
-          <View style={styles.formSection}>
-            <View style={styles.cardHeader}>
-              <Text style={styles.loginTitle}>Login {role}</Text>
-              <Text style={styles.loginSubtitle}>Masuk untuk memulai sesi kerja</Text>
             </View>
 
-            {/* Switcher Role (Kasir / Owner) */}
-            <View style={styles.roleToggleContainer}>
-              <TouchableOpacity
-                style={[styles.roleTab, role === 'Kasir' && styles.roleTabActive]}
-                onPress={() => setRole('Kasir')}
-              >
-                <Ionicons
-                  name="calculator-outline"
-                  size={18}
-                  color={role === 'Kasir' ? '#fff' : '#666'}
-                />
-                <Text
-                  style={[
-                    styles.roleTabText,
-                    role === 'Kasir' && styles.roleTabTextActive,
-                  ]}
-                >
-                  Kasir
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={[styles.roleTab, role === 'Owner' && styles.roleTabActive]}
-                onPress={() => setRole('Owner')}
-              >
-                <Ionicons
-                  name="briefcase-outline"
-                  size={18}
-                  color={role === 'Owner' ? '#fff' : '#666'}
-                />
-                <Text
-                  style={[
-                    styles.roleTabText,
-                    role === 'Owner' && styles.roleTabTextActive,
-                  ]}
-                >
-                  Owner
-                </Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Input Username */}
-            <View style={styles.inputContainer}>
-              <Ionicons name="person-outline" size={20} color="#777" style={styles.inputIcon} />
-              <TextInput
-                style={styles.textInput}
-                placeholder={`Masukkan username ${role.toLowerCase()}`}
-                placeholderTextColor="#999"
-                value={username}
-                onChangeText={setUsername}
-                autoCapitalize="none"
-              />
-            </View>
-
-            {/* Input Password */}
-            <View style={styles.inputContainer}>
-              <Ionicons name="lock-closed-outline" size={20} color="#777" style={styles.inputIcon} />
-              <TextInput
-                style={styles.textInput}
-                placeholder="Masukkan password"
-                placeholderTextColor="#999"
-                secureTextEntry={!showPassword}
-                value={password}
-                onChangeText={setPassword}
-              />
-              <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
-                <Ionicons
-                  name={showPassword ? 'eye-outline' : 'eye-off-outline'}
-                  size={20}
-                  color="#777"
-                />
-              </TouchableOpacity>
-            </View>
-
-            {/* Tombol Masuk */}
-            <TouchableOpacity style={styles.submitBtn} onPress={handleLogin}>
-              <Text style={styles.submitBtnText}>Masuk</Text>
-            </TouchableOpacity>
-
-            {/* Badge Info Tambahan */}
-            <View style={styles.footerNote}>
-              <Ionicons name="shield-checkmark-outline" size={16} color="#888" />
-              <Text style={styles.footerNoteText}>
-                {role === 'Owner'
-                  ? 'Akses khusus Pemilik Toko'
-                  : 'Hanya untuk Kasir bertugas'}
+            <View style={styles.heroTaglineBox}>
+              <Text style={styles.heroTagline}>
+                Rasa pedas,{"\n"}selalu jadi cerita! ❤️
               </Text>
             </View>
+
+            <View style={styles.heroFooter}>
+              <Text style={styles.heroFooterText}>🌶️ Seblak Prasmanan</Text>
+            </View>
           </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </View>
+
+        {/* Right Side: Login Form Card */}
+        <View style={[styles.formSection, isLargeScreen ? styles.formLarge : styles.formSmall]}>
+          <ScrollView
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+          >
+            <View style={styles.loginCard}>
+              <View style={styles.cardHeader}>
+                <Text style={styles.title}>Login Kasir</Text>
+                <Text style={styles.subtitle}>
+                  Masuk untuk memulai sesi kerja
+                </Text>
+              </View>
+
+              <View style={styles.formGroup}>
+                <CustomInput
+                  label="Username"
+                  placeholder="Masukkan username kasir"
+                  value={username}
+                  onChangeText={setUsername}
+                  iconName="person-outline"
+                />
+
+                <CustomInput
+                  label="Password"
+                  placeholder="Masukkan password"
+                  value={password}
+                  onChangeText={setPassword}
+                  secureTextEntry
+                  isPassword
+                  iconName="lock-closed-outline"
+                />
+
+                <CustomButton
+                  title="Masuk"
+                  onPress={handleLogin}
+                  loading={loading}
+                  style={styles.submitButton}
+                />
+              </View>
+
+              <View style={styles.noticeBox}>
+                <Ionicons name="lock-closed" size={14} color="#8D7B70" />
+                <Text style={styles.noticeText}>Hanya untuk kasir</Text>
+              </View>
+
+              {/* Demo quick login chip */}
+              <TouchableOpacity
+                style={styles.demoLoginBtn}
+                onPress={handleQuickLogin}
+                activeOpacity={0.7}
+              >
+                <Text style={styles.demoLoginText}>
+                  ⚡ Masuk Cepat sebagai Tata
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </ScrollView>
+        </View>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#F8F5F2',
+  },
+  mainLayout: {
+    flex: 1,
+  },
+  rowLayout: {
+    flexDirection: 'row',
+  },
+  heroSection: {
+    position: 'relative',
+    overflow: 'hidden',
+    backgroundColor: '#240C10',
+  },
+  heroLarge: {
+    flex: 1.1,
+    minHeight: '100%',
+  },
+  heroSmall: {
+    height: 240,
+    width: '100%',
+  },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    opacity: 0.88,
+  },
+  heroOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(30, 8, 12, 0.42)',
+    padding: 32,
+    justifyContent: 'space-between',
+  },
+  heroTopBrand: {
+    flexDirection: 'row',
+  },
+  heroLogoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  heroLogoCircle: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.35)',
+  },
+  heroLogoEmoji: {
+    fontSize: 24,
+  },
+  heroBrandName: {
+    fontSize: 20,
+    fontWeight: '900',
+    color: '#FFFFFF',
+    letterSpacing: 0.5,
+  },
+  heroBrandSub: {
+    fontSize: 13,
+    color: '#F4C2C6',
+    fontWeight: '600',
+  },
+  heroTaglineBox: {
+    maxWidth: 380,
+  },
+  heroTagline: {
+    fontSize: 26,
+    lineHeight: 36,
+    color: '#FFFFFF',
+    fontWeight: '800',
+    fontStyle: 'italic',
+    textShadowColor: 'rgba(0,0,0,0.4)',
+    textShadowOffset: { width: 0, height: 2 },
+    textShadowRadius: 6,
+  },
+  heroFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  heroFooterText: {
+    color: '#ECC4C8',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+  formSection: {
+    backgroundColor: '#FBF8F6',
+    justifyContent: 'center',
+  },
+  formLarge: {
+    flex: 1,
+    minHeight: '100%',
+    paddingHorizontal: 40,
+  },
+  formSmall: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 24,
   },
   scrollContent: {
     flexGrow: 1,
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    flexDirection: 'row', // Responsif untuk tampilan Tablet/Desktop/POS
-    flexWrap: 'wrap',
+    paddingVertical: 20,
   },
-  brandSection: {
-    flex: 1,
-    minWidth: 320,
-    height: 420,
-    marginRight: 16,
-    marginBottom: 16,
-  },
-  backgroundImage: {
+  loginCard: {
     width: '100%',
-    height: '100%',
-    justifyContent: 'flex-end',
-    overflow: 'hidden',
-  },
-  brandOverlay: {
-    backgroundColor: 'rgba(180, 20, 20, 0.82)',
-    padding: 24,
-    height: '100%',
-    justifyContent: 'space-between',
-    borderRadius: 16,
-  },
-  logoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  brandTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
-  },
-  brandSubtitle: {
-    fontSize: 14,
-    color: '#fce4e4',
-  },
-  quoteBox: {
-    marginBottom: 20,
-  },
-  quoteText: {
-    fontSize: 20,
-    fontWeight: '600',
-    color: '#fff',
-    fontStyle: 'italic',
-    lineHeight: 28,
-  },
-
-  formSection: {
-    flex: 1,
-    minWidth: 320,
-    backgroundColor: '#fff',
-    borderRadius: 16,
-    padding: 28,
-    elevation: 3,
-    shadowColor: '#000',
+    maxWidth: 420,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    padding: 32,
+    borderWidth: 1,
+    borderColor: '#EFE7E2',
+    elevation: 4,
+    shadowColor: '#4A2A22',
+    shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.08,
-    shadowRadius: 8,
-    shadowOffset: { width: 0, height: 2 },
-    marginBottom: 16,
+    shadowRadius: 18,
   },
   cardHeader: {
-    marginBottom: 20,
-  },
-  loginTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#222',
-  },
-  loginSubtitle: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 4,
-  },
-
-  // Toggle Tab Kasir/Owner
-  roleToggleContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#f1f3f5',
-    borderRadius: 10,
-    padding: 4,
-    marginBottom: 20,
-  },
-  roleTab: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingVertical: 10,
-    justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
-    gap: 6,
+    marginBottom: 28,
   },
-  roleTabActive: {
-    backgroundColor: '#d32f2f',
+  title: {
+    fontSize: 26,
+    fontWeight: '900',
+    color: '#2C1810',
+    letterSpacing: 0.3,
   },
-  roleTabText: {
-    fontSize: 14,
-    fontWeight: '600',
-    color: '#666',
+  subtitle: {
+    fontSize: 13,
+    color: '#8D7B70',
+    marginTop: 6,
+    fontWeight: '500',
   },
-  roleTabTextActive: {
-    color: '#fff',
+  formGroup: {
+    width: '100%',
   },
-
-  // Form Input
-  inputContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e0e0e0',
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    height: 48,
-    marginBottom: 16,
-    backgroundColor: '#fafafa',
-  },
-  inputIcon: {
-    marginRight: 10,
-  },
-  textInput: {
-    flex: 1,
-    fontSize: 14,
-    color: '#222',
-  },
-
-  submitBtn: {
-    backgroundColor: '#d32f2f',
-    height: 48,
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+  submitButton: {
     marginTop: 8,
   },
-  submitBtnText: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-
-  footerNote: {
+  noticeBox: {
     flexDirection: 'row',
-    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
+    justifyContent: 'center',
     gap: 6,
+    marginTop: 22,
   },
-  footerNoteText: {
+  noticeText: {
     fontSize: 12,
-    color: '#888',
+    color: '#8D7B70',
+    fontWeight: '600',
+  },
+  demoLoginBtn: {
+    marginTop: 18,
+    paddingVertical: 9,
+    paddingHorizontal: 12,
+    borderRadius: 10,
+    backgroundColor: '#FFF4E8',
+    borderWidth: 1,
+    borderColor: '#FFE0B2',
+    alignItems: 'center',
+  },
+  demoLoginText: {
+    color: '#C62828',
+    fontSize: 12,
+    fontWeight: '700',
   },
 });

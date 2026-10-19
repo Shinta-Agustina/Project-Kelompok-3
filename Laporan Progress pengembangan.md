@@ -101,6 +101,10 @@ Berdasarkan hasil analisis dan rancangan kebutuhan, sistem **Seblak Prasmanan PO
 
 2. Maya : Screen Pesanan Aktif (Filter Status & No. Meja),Screen Riwayat Transaksi & Laporan Penjualan
 
+![alt text](<Dashboard dan 3 halaman lainnya - Pribadi 2 - Microsoft_ Edge 2026-10-19 12-28-34.gif>)
+
+3. Faija :
+4. Dewi :
 3. Faija : Membuat menu dan harga, laporan keuangan, dan transaksi
 Bukti:
 ![alt text](<iPhone-14-PRO-localhost-z4tkso_otcz7gq (2).gif>)
