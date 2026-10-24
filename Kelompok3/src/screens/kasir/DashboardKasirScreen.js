@@ -5,14 +5,10 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
-<<<<<<< HEAD
   TextInput,
   useWindowDimensions,
   Modal,
   Alert,
-=======
-  useWindowDimensions,
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useKasir } from '../../context/KasirContext';
@@ -21,7 +17,6 @@ import {
   TOPPING_ITEMS,
   SPICE_LEVELS,
   BROTH_OPTIONS,
-<<<<<<< HEAD
   TABLE_OPTIONS,
 } from '../../data/mockData';
 import formatCurrency from '../../utils/formatCurrency';
@@ -33,17 +28,10 @@ import ReceiptModal from '../../components/ReceiptModal';
 import PesananAktifScreen from './PesananAktifScreen';
 import RiwayatTransaksiScreen from './RiwayatTransaksiScreen';
 import LaporanScreen from './LaporanScreen';
-=======
-} from '../../data/mockData';
-import Sidebar from '../../components/Sidebar';
-import TopHeader from '../../components/TopHeader';
-import ToppingCard from '../../components/ToppingCard';
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
 
 export default function DashboardKasirScreen() {
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
-<<<<<<< HEAD
   const isTablet = width >= 768 && width < 1024;
 
   const {
@@ -55,15 +43,10 @@ export default function DashboardKasirScreen() {
     resetCart,
     getTotalPrice,
     getTotalItemsCount,
-=======
-
-  const {
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     selectedKuah,
     setSelectedKuah,
     selectedLevel,
     setSelectedLevel,
-<<<<<<< HEAD
     selectedMeja,
     setSelectedMeja,
     catatan,
@@ -76,21 +59,15 @@ export default function DashboardKasirScreen() {
 
   // Sidebar toggle state
   const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
+
   // Modal states
   const [paymentVisible, setPaymentVisible] = useState(false);
   const [receiptVisible, setReceiptVisible] = useState(false);
   const [currentOrderPayload, setCurrentOrderPayload] = useState(null);
   const [lastTransaction, setLastTransaction] = useState(null);
+
   // Mobile cart sheet state
   const [mobileCartOpen, setMobileCartOpen] = useState(false);
-
-=======
-    activeCategory,
-    setActiveCategory,
-  } = useKasir();
-
-  // Sidebar toggle state (default terbuka di desktop/tablet, tertutup di mobile)
-  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
 
   // Toggle sidebar via garis burger
   const handleToggleSidebar = () => {
@@ -98,15 +75,13 @@ export default function DashboardKasirScreen() {
   };
 
   // Filter toppings berdasarkan kategori aktif
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   const filteredToppings = TOPPING_ITEMS.filter((item) => {
     if (activeCategory === 'Semua') return true;
     return item.kategori === activeCategory;
   });
 
-<<<<<<< HEAD
-  const total = getTotalPrice();
-  const totalItemsCount = getTotalItemsCount();
+  const total = getTotalPrice ? getTotalPrice() : 0;
+  const totalItemsCount = getTotalItemsCount ? getTotalItemsCount() : 0;
 
   // Trigger Hitung Total -> Siapkan Data Pesanan & Buka Modal Pembayaran
   const handleOpenPayment = () => {
@@ -125,7 +100,7 @@ export default function DashboardKasirScreen() {
     const dateStr = `${String(now.getDate()).padStart(2, '0')}/${String(
       now.getMonth() + 1
     ).padStart(2, '0')}/${now.getFullYear()}`;
-    const orderNum = `#00${orders.length + 1}`;
+    const orderNum = `#00${(orders?.length || 0) + 1}`;
 
     const payload = {
       orderNo: orderNum,
@@ -162,7 +137,7 @@ export default function DashboardKasirScreen() {
     setReceiptVisible(true);
   };
 
-  // Render "Pesanan Saat Ini" Order Panel Component
+  // Render Panel "Pesanan Saat Ini"
   const renderOrderPanel = () => (
     <View style={styles.orderPanel}>
       {/* Panel Header */}
@@ -191,7 +166,7 @@ export default function DashboardKasirScreen() {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={styles.mejaPillsRow}
         >
-          {TABLE_OPTIONS.map((meja) => {
+          {TABLE_OPTIONS?.map((meja) => {
             const isSel = selectedMeja === meja;
             return (
               <TouchableOpacity
@@ -253,7 +228,7 @@ export default function DashboardKasirScreen() {
                 )}
               </View>
 
-              {/* Qty +/- Buttons */}
+              {/* Tombol Kontrol Qty +/- */}
               <View style={styles.qtyControlRow}>
                 <TouchableOpacity
                   style={styles.qtyBtn}
@@ -282,7 +257,7 @@ export default function DashboardKasirScreen() {
         )}
       </ScrollView>
 
-      {/* Specification Summary: Kuah & Level Pedas */}
+      {/* Rincian Kuah & Level Pedas */}
       <View style={styles.specsContainer}>
         <View style={styles.specItem}>
           <Text style={styles.specLabel}>Kuah</Text>
@@ -304,7 +279,7 @@ export default function DashboardKasirScreen() {
         </View>
       </View>
 
-      {/* Catatan (opsional) */}
+      {/* Catatan */}
       <View style={styles.notesContainer}>
         <Text style={styles.notesLabel}>Catatan (opsional)</Text>
         <TextInput
@@ -316,7 +291,7 @@ export default function DashboardKasirScreen() {
         />
       </View>
 
-      {/* Big Red Button: Hitung Total -> Buka Pembayaran */}
+      {/* Tombol Hitung Total / Pembayaran */}
       <TouchableOpacity
         style={[
           styles.checkoutButton,
@@ -337,20 +312,10 @@ export default function DashboardKasirScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Sidebar Desktop/Laptop */}
+      {/* Sidebar Desktop/Tablet */}
       {!isMobile && sidebarOpen && <Sidebar isMobile={false} />}
 
-      {/* Mobile Drawer Overlay */}
-=======
-  return (
-    <View style={styles.container}>
-      {/* Sidebar Kasir: Dikontrol oleh Garis Burger (≡) */}
-      {!isMobile && sidebarOpen && (
-        <Sidebar isMobile={false} />
-      )}
-
-      {/* Mobile Drawer Overlay saat Garis Burger ditekan di layar kecil */}
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
+      {/* Mobile Sidebar Overlay */}
       {isMobile && sidebarOpen && (
         <View style={styles.mobileBackdrop}>
           <TouchableOpacity
@@ -362,11 +327,10 @@ export default function DashboardKasirScreen() {
         </View>
       )}
 
-<<<<<<< HEAD
       {/* Main Content Area */}
       <View style={styles.mainWrapper}>
         <TopHeader
-          onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
+          onToggleSidebar={handleToggleSidebar}
           isSidebarOpen={sidebarOpen}
         />
 
@@ -379,23 +343,22 @@ export default function DashboardKasirScreen() {
         )}
         {activeTab === 'Laporan' && <LaporanScreen />}
 
-        {/* Tab Kasir (Point of Sale Main) */}
+        {/* Tab Utama POS (Kasir) */}
         {activeTab === 'Kasir' && (
           <View style={styles.posContainer}>
-            {/* Main POS Layout */}
             <View
               style={[
                 styles.posInner,
                 !isMobile && !isTablet && styles.posRowLayout,
               ]}
             >
-              {/* Left / Middle Column: Menu Topping & Kustomisasi */}
+              {/* Kolom Menu & Katalog Topping */}
               <ScrollView
                 style={styles.catalogColumn}
                 contentContainerStyle={styles.catalogScrollContent}
                 showsVerticalScrollIndicator={false}
               >
-                {/* 1. Pilih Topping Title */}
+                {/* Section Title */}
                 <View style={styles.sectionHeaderRow}>
                   <Text style={styles.sectionTitle}>Pilih Topping</Text>
                   <Text style={styles.sectionSubHint}>
@@ -403,7 +366,7 @@ export default function DashboardKasirScreen() {
                   </Text>
                 </View>
 
-                {/* 2. Category Filter Pills */}
+                {/* Filter Kategori */}
                 <ScrollView
                   horizontal
                   showsHorizontalScrollIndicator={false}
@@ -434,7 +397,7 @@ export default function DashboardKasirScreen() {
                   })}
                 </ScrollView>
 
-                {/* 3. Grid of Topping Cards */}
+                {/* Grid Topping Cards */}
                 <View style={styles.toppingsGrid}>
                   {filteredToppings.map((item) => {
                     const cartItem = cart.find((c) => c.id === item.id);
@@ -450,7 +413,7 @@ export default function DashboardKasirScreen() {
                   })}
                 </View>
 
-                {/* 4. Level Kepedasan Section */}
+                {/* Level Kepedasan */}
                 <View style={styles.customSectionBox}>
                   <Text style={styles.customSectionTitle}>
                     Level Kepedasan
@@ -507,7 +470,7 @@ export default function DashboardKasirScreen() {
                   </ScrollView>
                 </View>
 
-                {/* 5. Pilihan Kuah Section */}
+                {/* Pilihan Kuah */}
                 <View
                   style={[
                     styles.customSectionBox,
@@ -543,7 +506,7 @@ export default function DashboardKasirScreen() {
                 </View>
               </ScrollView>
 
-              {/* Right Column (Laptop/Desktop): Pesanan Saat Ini */}
+              {/* Kolom Kanan (Desktop View): Order Panel */}
               {!isMobile && !isTablet && (
                 <View style={styles.orderColumnContainer}>
                   {renderOrderPanel()}
@@ -551,7 +514,7 @@ export default function DashboardKasirScreen() {
               )}
             </View>
 
-            {/* Mobile Bottom Bar for Cart */}
+            {/* Bottom Bar Keranjang (Tampilan Mobile) */}
             {isMobile && (
               <View style={styles.mobileBottomBar}>
                 <View style={styles.mobileCartSummary}>
@@ -587,7 +550,7 @@ export default function DashboardKasirScreen() {
               </View>
             )}
 
-            {/* Mobile Cart Sheet Modal */}
+            {/* Bottom Sheet Cart Modal (Tampilan Mobile) */}
             {isMobile && (
               <Modal
                 visible={mobileCartOpen}
@@ -620,13 +583,13 @@ export default function DashboardKasirScreen() {
         )}
       </View>
 
-      {/* Payment Modal */}
+      {/* Modal Pembayaran */}
       <PaymentModal
         visible={paymentVisible}
         onClose={() => setPaymentVisible(false)}
         transactionData={
           currentOrderPayload || {
-            orderNo: `#00${orders.length + 1}`,
+            orderNo: `#00${(orders?.length || 0) + 1}`,
             tableNo: selectedMeja || 'Meja 2',
             time: '09:45',
             date: '16/10/2025',
@@ -645,182 +608,12 @@ export default function DashboardKasirScreen() {
         onSuccessPayment={handleCheckoutSuccess}
       />
 
-      {/* Receipt Modal (Cetak Struk) */}
+      {/* Modal Struk Pembayaran */}
       <ReceiptModal
         visible={receiptVisible}
         transactionData={lastTransaction}
-        onClose={() => {
-          setReceiptVisible(false);
-        }}
+        onClose={() => setReceiptVisible(false)}
       />
-=======
-      {/* Main Content Area: Menu Topping Seblak Prasmanan */}
-      <View style={styles.mainWrapper}>
-        {/* Top Header dengan Garis Burger */}
-        <TopHeader
-          onToggleSidebar={handleToggleSidebar}
-          isSidebarOpen={sidebarOpen}
-        />
-
-        {/* Konten Menu Topping */}
-        <ScrollView
-          style={styles.scrollArea}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* Header Banner Menu */}
-          <View style={styles.bannerCard}>
-            <View style={styles.bannerInfo}>
-              <View style={styles.badgeLabel}>
-                <Text style={styles.badgeLabelText}>🌶️ PRASMANAN KASIR</Text>
-              </View>
-              <Text style={styles.bannerTitle}>Daftar Menu Topping</Text>
-              <Text style={styles.bannerSubtitle}>
-                Katalog varian topping seblak prasmanan segar beserta harga satuan resmi.
-              </Text>
-            </View>
-            <View style={styles.statsChip}>
-              <Text style={styles.statsNumber}>{filteredToppings.length}</Text>
-              <Text style={styles.statsLabel}>Topping Tersedia</Text>
-            </View>
-          </View>
-
-          {/* Filter Tab Kategori */}
-          <View style={styles.filterSection}>
-            <Text style={styles.sectionHeading}>Pilih Kategori</Text>
-            <ScrollView
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              contentContainerStyle={styles.categoryScroll}
-            >
-              {TOPPING_CATEGORIES.map((cat) => {
-                const isActive = activeCategory === cat;
-                return (
-                  <TouchableOpacity
-                    key={cat}
-                    style={[
-                      styles.categoryPill,
-                      isActive && styles.categoryPillActive,
-                    ]}
-                    onPress={() => setActiveCategory(cat)}
-                    activeOpacity={0.7}
-                  >
-                    <Text
-                      style={[
-                        styles.categoryPillText,
-                        isActive && styles.categoryPillTextActive,
-                      ]}
-                    >
-                      {cat}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </ScrollView>
-          </View>
-
-          {/* Grid Kartu Menu Topping */}
-          <View style={styles.toppingsGrid}>
-            {filteredToppings.map((item) => (
-              <ToppingCard key={item.id} item={item} />
-            ))}
-          </View>
-
-          {/* Bagian Kustomisasi: Level Kepedasan & Pilihan Kuah */}
-          <View style={styles.customizationsSection}>
-            {/* Level Kepedasan */}
-            <View style={styles.customBox}>
-              <View style={styles.customHeader}>
-                <Ionicons name="flame" size={20} color="#C62828" />
-                <Text style={styles.customTitle}>Level Kepedasan</Text>
-              </View>
-              <Text style={styles.customSubtitle}>
-                Tersedia 6 level kepedasan khas Seblak Prasmanan:
-              </Text>
-
-              <ScrollView
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                contentContainerStyle={styles.levelsRow}
-              >
-                {SPICE_LEVELS.map((sl) => {
-                  const isSelected = selectedLevel === sl.level;
-                  return (
-                    <TouchableOpacity
-                      key={sl.level}
-                      style={[
-                        styles.levelCard,
-                        isSelected && styles.levelCardActive,
-                      ]}
-                      onPress={() => setSelectedLevel(sl.level)}
-                      activeOpacity={0.7}
-                    >
-                      <Text style={styles.levelNumber}>{sl.level}</Text>
-                      <View style={styles.chiliIconsRow}>
-                        {sl.chilis === 0 ? (
-                          <Text style={styles.chiliGrey}>🌶️</Text>
-                        ) : (
-                          Array.from({ length: sl.chilis }).map((_, i) => (
-                            <Text key={i} style={styles.chiliRed}>
-                              🌶️
-                            </Text>
-                          ))
-                        )}
-                      </View>
-                      <Text
-                        style={[
-                          styles.levelLabel,
-                          isSelected && styles.levelLabelActive,
-                        ]}
-                      >
-                        {sl.label}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </ScrollView>
-            </View>
-
-            {/* Pilihan Kuah */}
-            <View style={[styles.customBox, { marginTop: 16 }]}>
-              <View style={styles.customHeader}>
-                <Ionicons name="restaurant" size={18} color="#C62828" />
-                <Text style={styles.customTitle}>Pilihan Kuah</Text>
-              </View>
-              <Text style={styles.customSubtitle}>
-                Varian kuah rempah pilihan:
-              </Text>
-
-              <View style={styles.brothRow}>
-                {BROTH_OPTIONS.map((broth) => {
-                  const isSelected = selectedKuah === broth;
-                  return (
-                    <TouchableOpacity
-                      key={broth}
-                      style={[
-                        styles.brothPill,
-                        isSelected && styles.brothPillActive,
-                      ]}
-                      onPress={() => setSelectedKuah(broth)}
-                      activeOpacity={0.7}
-                    >
-                      <Text
-                        style={[
-                          styles.brothPillText,
-                          isSelected && styles.brothPillTextActive,
-                        ]}
-                      >
-                        {broth}
-                      </Text>
-                    </TouchableOpacity>
-                  );
-                })}
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-      </View>
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     </View>
   );
 }
@@ -842,7 +635,6 @@ const styles = StyleSheet.create({
   },
   mainWrapper: {
     flex: 1,
-<<<<<<< HEAD
     flexDirection: 'column',
   },
   posContainer: {
@@ -860,7 +652,7 @@ const styles = StyleSheet.create({
   },
   catalogScrollContent: {
     padding: 16,
-    paddingBottom: 50,
+    paddingBottom: 80,
   },
   sectionHeaderRow: {
     flexDirection: 'row',
@@ -902,132 +694,13 @@ const styles = StyleSheet.create({
     color: '#7E6E67',
   },
   catPillTextActive: {
-=======
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  },
-  scrollArea: {
-    flex: 1,
-  },
-  scrollContent: {
-    padding: 24,
-    paddingBottom: 60,
-    maxWidth: 1200,
-    width: '100%',
-    alignSelf: 'center',
-  },
-  bannerCard: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 18,
-    padding: 22,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
-    elevation: 2,
-    shadowColor: '#3D2922',
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
-    gap: 16,
-    marginBottom: 20,
-  },
-  bannerInfo: {
-    flex: 1,
-    minWidth: 260,
-  },
-  badgeLabel: {
-    alignSelf: 'flex-start',
-    backgroundColor: '#FDECEC',
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-    borderRadius: 8,
-    marginBottom: 8,
-  },
-  badgeLabelText: {
-    color: '#C62828',
-    fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 0.5,
-  },
-  bannerTitle: {
-    fontSize: 22,
-    fontWeight: '900',
-    color: '#2C1810',
-  },
-  bannerSubtitle: {
-    fontSize: 13,
-    color: '#8D7B70',
-    marginTop: 4,
-    lineHeight: 18,
-  },
-  statsChip: {
-    backgroundColor: '#FAF5F1',
-    borderRadius: 14,
-    paddingVertical: 12,
-    paddingHorizontal: 18,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#E8DCD4',
-  },
-  statsNumber: {
-    fontSize: 22,
-    fontWeight: '900',
-    color: '#C62828',
-  },
-  statsLabel: {
-    fontSize: 11,
-    color: '#8D7B70',
-    fontWeight: '600',
-    marginTop: 2,
-  },
-  filterSection: {
-    marginBottom: 16,
-  },
-  sectionHeading: {
-    fontSize: 14,
-    fontWeight: '800',
-    color: '#2C1810',
-    marginBottom: 10,
-  },
-  categoryScroll: {
-    gap: 8,
-    paddingBottom: 4,
-  },
-  categoryPill: {
-    paddingVertical: 8,
-    paddingHorizontal: 18,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1.5,
-    borderColor: '#E8DCD4',
-  },
-  categoryPillActive: {
-    backgroundColor: '#C62828',
-    borderColor: '#C62828',
-    shadowColor: '#C62828',
-    shadowOpacity: 0.25,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
-  },
-  categoryPillText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: '#7E6E67',
-  },
-  categoryPillTextActive: {
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     color: '#FFFFFF',
   },
   toppingsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-<<<<<<< HEAD
-    marginHorizontal: -4,
-    marginBottom: 16,
+    gap: 12,
+    marginBottom: 20,
   },
   customSectionBox: {
     backgroundColor: '#FFFFFF',
@@ -1035,136 +708,53 @@ const styles = StyleSheet.create({
     padding: 14,
     borderWidth: 1,
     borderColor: '#EFE7E2',
-    elevation: 1,
-    shadowColor: '#4A2A22',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
   },
   customSectionTitle: {
-    fontSize: 13,
+    fontSize: 14,
     fontWeight: '800',
     color: '#2C1810',
     marginBottom: 10,
-  },
-  levelsRow: {
-    gap: 8,
-    paddingVertical: 4,
-  },
-  levelCard: {
-    width: 82,
-    paddingVertical: 10,
-    paddingHorizontal: 6,
-    borderRadius: 10,
-    backgroundColor: '#FAF5F1',
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  levelCardActive: {
-    backgroundColor: '#FDECEC',
-    borderColor: '#C62828',
-  },
-  levelNumber: {
-    fontSize: 15,
-    fontWeight: '900',
-    color: '#3D2820',
-  },
-  levelNumberActive: {
-    color: '#C62828',
-  },
-  chiliIconsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: 4,
-    minHeight: 18,
-  },
-  levelLabel: {
-    fontSize: 10,
-    fontWeight: '600',
-=======
-    marginHorizontal: -8,
-    marginBottom: 24,
-  },
-  customizationsSection: {
-    gap: 16,
-  },
-  customBox: {
-    backgroundColor: '#FFFFFF',
-    borderRadius: 18,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
-    elevation: 2,
-    shadowColor: '#3D2922',
-    shadowOpacity: 0.05,
-    shadowRadius: 10,
-  },
-  customHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  customTitle: {
-    fontSize: 15,
-    fontWeight: '800',
-    color: '#2C1810',
-  },
-  customSubtitle: {
-    fontSize: 12,
-    color: '#8D7B70',
-    marginTop: 4,
-    marginBottom: 14,
   },
   levelsRow: {
     gap: 10,
     paddingBottom: 4,
   },
   levelCard: {
-    paddingVertical: 12,
-    paddingHorizontal: 16,
-    borderRadius: 14,
+    width: 72,
+    paddingVertical: 10,
+    paddingHorizontal: 6,
+    borderRadius: 12,
     backgroundColor: '#FAF5F1',
-    borderWidth: 1.5,
-    borderColor: '#EAE1D9',
+    borderWidth: 1,
+    borderColor: '#E8DCD4',
     alignItems: 'center',
-    minWidth: 92,
   },
   levelCardActive: {
-    backgroundColor: '#FFF4F4',
+    backgroundColor: '#FFF5F5',
     borderColor: '#C62828',
   },
   levelNumber: {
-    fontSize: 18,
-    fontWeight: '900',
-    color: '#2C1810',
+    fontSize: 14,
+    fontWeight: '800',
+    color: '#7E6E67',
+  },
+  levelNumberActive: {
+    color: '#C62828',
   },
   chiliIconsRow: {
     flexDirection: 'row',
     marginVertical: 4,
-    height: 18,
+    minHeight: 18,
     alignItems: 'center',
   },
-  chiliGrey: {
-    fontSize: 14,
-    opacity: 0.35,
-  },
-  chiliRed: {
-    fontSize: 14,
-  },
   levelLabel: {
-    fontSize: 11,
-    fontWeight: '700',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
+    fontSize: 10,
     color: '#8D7B70',
+    fontWeight: '600',
     textAlign: 'center',
   },
   levelLabelActive: {
     color: '#C62828',
-<<<<<<< HEAD
-    fontWeight: '700',
   },
   brothPillsRow: {
     flexDirection: 'row',
@@ -1172,76 +762,51 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   brothPill: {
-    paddingVertical: 6,
-    paddingHorizontal: 16,
-    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    borderRadius: 10,
     backgroundColor: '#FAF5F1',
     borderWidth: 1,
-    borderColor: '#EFE7E2',
-=======
-  },
-  brothRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-  },
-  brothPill: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 12,
-    backgroundColor: '#FAF5F1',
-    borderWidth: 1.5,
-    borderColor: '#EAE1D9',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
+    borderColor: '#E8DCD4',
   },
   brothPillActive: {
     backgroundColor: '#C62828',
     borderColor: '#C62828',
   },
   brothPillText: {
-<<<<<<< HEAD
     fontSize: 12,
     fontWeight: '700',
-    color: '#6F5C53',
-=======
-    fontSize: 13,
-    fontWeight: '700',
     color: '#7E6E67',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   brothPillTextActive: {
     color: '#FFFFFF',
   },
-<<<<<<< HEAD
-  // Order Panel (Right Column)
   orderColumnContainer: {
     width: 360,
-    backgroundColor: '#FFFFFF',
     borderLeftWidth: 1,
-    borderLeftColor: '#EDE5DF',
+    borderLeftColor: '#EFE7E2',
+    backgroundColor: '#FFFFFF',
   },
   orderPanel: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#FFFFFF',
     padding: 16,
+    backgroundColor: '#FFFFFF',
   },
   orderHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 12,
   },
   orderTitle: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: '800',
     color: '#2C1810',
   },
   orderSubtitle: {
     fontSize: 11,
     color: '#8D7B70',
-    marginTop: 1,
+    marginTop: 2,
   },
   resetBtn: {
     flexDirection: 'row',
@@ -1250,37 +815,32 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     paddingHorizontal: 8,
     borderRadius: 6,
-    backgroundColor: '#FDECEC',
-    borderWidth: 1,
-    borderColor: '#F8B4B4',
+    backgroundColor: '#FFF0F0',
   },
   resetBtnText: {
     fontSize: 11,
-    fontWeight: '700',
     color: '#C62828',
+    fontWeight: '700',
   },
   mejaSelectBox: {
-    marginBottom: 8,
-    paddingBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#F5ECE6',
+    marginBottom: 12,
   },
   mejaSelectLabel: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#4A3028',
-    marginBottom: 4,
+    color: '#5C4A42',
+    marginBottom: 6,
   },
   mejaPillsRow: {
     gap: 6,
   },
   mejaPill: {
-    paddingVertical: 4,
+    paddingVertical: 5,
     paddingHorizontal: 10,
-    borderRadius: 6,
+    borderRadius: 8,
     backgroundColor: '#FAF5F1',
     borderWidth: 1,
-    borderColor: '#EFE7E2',
+    borderColor: '#E8DCD4',
   },
   mejaPillActive: {
     backgroundColor: '#C62828',
@@ -1289,57 +849,60 @@ const styles = StyleSheet.create({
   mejaPillText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#6F5C53',
+    color: '#7E6E67',
   },
   mejaPillTextActive: {
     color: '#FFFFFF',
   },
   tableHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 7,
-    paddingHorizontal: 4,
+    paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#F0E5DF',
+    borderBottomColor: '#EFE7E2',
+    backgroundColor: '#FAF5F1',
+    paddingHorizontal: 6,
+    borderRadius: 6,
   },
   thText: {
     fontSize: 11,
     fontWeight: '700',
-    color: '#8D7B70',
+    color: '#7E6E67',
   },
   orderItemsScroll: {
-    maxHeight: 220,
-    minHeight: 120,
+    flex: 1,
+    maxHeight: 280,
+    marginVertical: 8,
   },
   emptyCartBox: {
-    paddingVertical: 24,
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 32,
   },
   emptyCartEmoji: {
-    fontSize: 28,
+    fontSize: 32,
     marginBottom: 6,
   },
   emptyCartTitle: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#6F5C53',
+    color: '#5C4A42',
   },
   emptyCartSub: {
     fontSize: 11,
     color: '#A09088',
-    marginTop: 2,
     textAlign: 'center',
+    marginTop: 2,
   },
   orderRow: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#F7EFEA',
+    borderBottomColor: '#F5EFEA',
+    paddingHorizontal: 4,
   },
   tdText: {
     fontSize: 12,
-    color: '#3D2820',
   },
   itemNameText: {
     fontSize: 12,
@@ -1348,7 +911,7 @@ const styles = StyleSheet.create({
   },
   itemWeightText: {
     fontSize: 10,
-    color: '#8D7B70',
+    color: '#A09088',
   },
   qtyControlRow: {
     width: 75,
@@ -1358,18 +921,17 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   qtyBtn: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
-    backgroundColor: '#FDECEC',
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: '#C62828',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#F8B4B4',
+    backgroundColor: '#FFFFFF',
   },
   qtyBtnAdd: {
     backgroundColor: '#C62828',
-    borderColor: '#C62828',
   },
   qtyNumberText: {
     fontSize: 12,
@@ -1377,17 +939,17 @@ const styles = StyleSheet.create({
     color: '#2C1810',
   },
   itemPriceText: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
     color: '#C62828',
     textAlign: 'right',
   },
   specsContainer: {
     backgroundColor: '#FAF5F1',
-    borderRadius: 10,
+    borderRadius: 8,
     padding: 10,
-    marginTop: 8,
-    gap: 4,
+    gap: 6,
+    marginVertical: 8,
   },
   specItem: {
     flexDirection: 'row',
@@ -1396,60 +958,52 @@ const styles = StyleSheet.create({
   },
   specLabel: {
     fontSize: 11,
-    color: '#8D7B70',
+    color: '#7E6E67',
     fontWeight: '600',
   },
   specValue: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
-    color: '#C62828',
+    color: '#2C1810',
   },
   specChiliRow: {
     flexDirection: 'row',
-    alignItems: 'center',
     gap: 2,
   },
   specChiliMuted: {
     fontSize: 11,
-    color: '#8D7B70',
+    color: '#A09088',
   },
   notesContainer: {
-    marginTop: 8,
+    marginBottom: 12,
   },
   notesLabel: {
     fontSize: 11,
+    color: '#7E6E67',
     fontWeight: '600',
-    color: '#8D7B70',
     marginBottom: 4,
   },
   notesInput: {
     backgroundColor: '#FAF5F1',
     borderWidth: 1,
-    borderColor: '#EFE7E2',
+    borderColor: '#E8DCD4',
     borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    fontSize: 12,
+    fontSize: 11,
     color: '#2C1810',
-    outlineStyle: 'none',
   },
   checkoutButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
     backgroundColor: '#C62828',
     borderRadius: 10,
     paddingVertical: 12,
     paddingHorizontal: 16,
-    marginTop: 12,
-    elevation: 3,
-    shadowColor: '#C62828',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   checkoutButtonDisabled: {
-    opacity: 0.5,
+    backgroundColor: '#D6A4A4',
   },
   checkoutBtnLeft: {
     flexDirection: 'row',
@@ -1458,95 +1012,88 @@ const styles = StyleSheet.create({
   },
   checkoutBtnText: {
     color: '#FFFFFF',
-    fontSize: 14,
     fontWeight: '800',
+    fontSize: 13,
   },
   checkoutBtnAmount: {
     color: '#FFFFFF',
-    fontSize: 14,
     fontWeight: '800',
+    fontSize: 14,
   },
-  // Mobile Bottom Bar
   mobileBottomBar: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
     backgroundColor: '#FFFFFF',
-    borderTopWidth: 1,
-    borderTopColor: '#EDE5DF',
     paddingVertical: 10,
     paddingHorizontal: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#EFE7E2',
     flexDirection: 'row',
-    alignItems: 'center',
     justifyContent: 'space-between',
+    alignItems: 'center',
     elevation: 8,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -3 },
     shadowOpacity: 0.1,
-    shadowRadius: 6,
+    shadowRadius: 4,
   },
   mobileCartSummary: {
-    justifyContent: 'center',
+    flex: 1,
   },
   mobileCartCount: {
     fontSize: 11,
-    color: '#8D7B70',
-    fontWeight: '600',
+    color: '#7E6E67',
   },
   mobileCartTotal: {
     fontSize: 15,
-    fontWeight: '900',
+    fontWeight: '800',
     color: '#C62828',
   },
   mobileViewCartBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
     backgroundColor: '#C62828',
     paddingVertical: 10,
     paddingHorizontal: 16,
     borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
   },
   mobileViewCartBtnText: {
     color: '#FFFFFF',
-    fontSize: 13,
     fontWeight: '800',
+    fontSize: 12,
   },
   mobileModalOverlay: {
     flex: 1,
-    justifyContent: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
   },
   mobileModalBackdrop: {
-    ...StyleSheet.absoluteFillObject,
+    flex: 1,
   },
   mobileModalContent: {
     backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
     maxHeight: '85%',
-    paddingBottom: 24,
+    paddingBottom: 20,
   },
   mobileSheetHeader: {
     alignItems: 'center',
-    paddingTop: 8,
-    paddingBottom: 4,
+    paddingVertical: 10,
     position: 'relative',
   },
   sheetHandle: {
-    width: 40,
+    width: 36,
     height: 4,
-    backgroundColor: '#DDD2CA',
     borderRadius: 2,
+    backgroundColor: '#DDD',
   },
   sheetCloseBtn: {
     position: 'absolute',
     right: 14,
     top: 6,
-    padding: 6,
+    padding: 4,
   },
-});
-=======
-});
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
+}); 

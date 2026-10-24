@@ -6,7 +6,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-<<<<<<< HEAD
   SafeAreaView,
   useWindowDimensions,
   Image,
@@ -61,35 +60,10 @@ export default function PaymentModal({
           (acc, item) => acc + (item.price || 0) * (item.qty || 1),
           0
         );
-=======
-  TextInput,
-  SafeAreaView,
-} from 'react-native';
-import { MaterialCommunityIcons, Ionicons } from '@expo/vector-icons';
-
-export default function PaymentModal({ visible, onClose, transactionData, onSuccessPayment }) {
-  // State Metode Pembayaran: 'Tunai' | 'QRIS' | 'E-Wallet'
-  const [paymentMethod, setPaymentMethod] = useState('Tunai');
-  const [cashInput, setCashInput] = useState('');
-  const [isSuccess, setIsSuccess] = useState(false);
-
-  // Ambil data total dari transactionData
-  const orderItems = transactionData?.items || [
-    { name: 'Topping Lengkap', qty: 1, price: 28000 },
-    { name: 'Telur', qty: 1, price: 4000 },
-  ];
-  const orderNumber = transactionData?.orderNo || '#003';
-  const tableNo = transactionData?.tableNo || 'Meja 2';
-  const orderTime = transactionData?.time || '09:45';
-
-  // Hitung Total Otomatis
-  const totalPrice = orderItems.reduce((acc, item) => acc + item.price * item.qty, 0);
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
 
   useEffect(() => {
     if (visible) {
       setCashInput(totalPrice.toString());
-<<<<<<< HEAD
       setPaymentMethod('Tunai');
     }
   }, [visible, totalPrice]);
@@ -112,45 +86,10 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
       setCashInput((prev) => {
         if (prev === '0') return val;
         return prev + val;
-=======
-      setIsSuccess(false);
-    }
-  }, [visible, totalPrice]);
-
-  // Handler Numpad Tombol Angka
-  const handleNumpad = (value) => {
-    if (value === 'DEL') {
-      setCashInput((prev) => prev.slice(0, -1) || '0');
-    } else if (value === '00') {
-      if (cashInput !== '0' && cashInput !== '') {
-        setCashInput((prev) => prev + '00');
-      }
-    } else {
-      if (cashInput === '0') {
-        setCashInput(value);
-      } else {
-        setCashInput((prev) => prev + value);
-      }
-    }
-  };
-
-  const handlePay = () => {
-    setIsSuccess(true);
-    if (onSuccessPayment) {
-      onSuccessPayment({
-        orderNo: orderNumber,
-        tableNo,
-        time: orderTime,
-        items: orderItems,
-        total: totalPrice,
-        method: paymentMethod,
-        cashPaid: parseInt(cashInput, 10) || totalPrice,
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
       });
     }
   };
 
-<<<<<<< HEAD
   const handleQuickAmount = (amt) => {
     setCashInput(amt.toString());
   };
@@ -258,29 +197,10 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                 {user?.name || 'Siti Aisyah'}
               </Text>
               <Text style={styles.profileRole}>{user?.role || 'Kasir'}</Text>
-=======
-  const numpadKeys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '00', '0', 'DEL'];
-
-  return (
-    <Modal visible={visible} animationType="slide" transparent={false}>
-      <SafeAreaView style={styles.container}>
-        {/* Header bar */}
-        <View style={styles.header}>
-          <TouchableOpacity onPress={onClose} style={styles.backButton}>
-            <Ionicons name="arrow-back" size={24} color="#333" />
-            <Text style={styles.headerTitle}>Pembayaran</Text>
-          </TouchableOpacity>
-          <View style={styles.profileSection}>
-            <Ionicons name="person-circle-outline" size={32} color="#333" />
-            <View>
-              <Text style={styles.profileName}>Siti Aisyah</Text>
-              <Text style={styles.profileRole}>Kasir</Text>
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
             </View>
           </View>
         </View>
 
-<<<<<<< HEAD
         {/* Responsive Content */}
         <ScrollView
           style={styles.mainScrollView}
@@ -314,7 +234,7 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
 
               <View style={styles.orderDetailSubRow}>
                 <Text style={styles.orderDetailSubText}>
-                  Waktu: {orderTime} • Kuah: {kuah} • Level Pedas: Lvl {pedas}
+                  Waktu: {orderTime} | Kuah: {kuah} | Level: {pedas}
                 </Text>
                 {catatan ? (
                   <Text style={styles.orderNotesText} numberOfLines={1}>
@@ -411,71 +331,11 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                     ]}
                   >
                     Tunai (Cash)
-=======
-        {!isSuccess ? (
-          /* TAMPILAN PROSES PEMBAYARAN */
-          <View style={styles.contentLayout}>
-            {/* Sisi Kiri: Ringkasan Pesanan & Metode Pembayaran */}
-            <ScrollView style={styles.leftColumn} showsVerticalScrollIndicator={false}>
-              <Text style={styles.sectionTitle}>Ringkasan Pesanan</Text>
-              
-              <View style={styles.rowDetail}>
-                <Text style={styles.labelDetail}>No. Pesanan</Text>
-                <Text style={styles.valueDetail}>{orderNumber}</Text>
-              </View>
-              <View style={styles.rowDetail}>
-                <Text style={styles.labelDetail}>Meja</Text>
-                <Text style={styles.valueDetail}>{tableNo}</Text>
-              </View>
-              <View style={styles.rowDetail}>
-                <Text style={styles.labelDetail}>Waktu</Text>
-                <Text style={styles.valueDetail}>{orderTime}</Text>
-              </View>
-
-              {/* Table Item */}
-              <View style={styles.tableHeader}>
-                <Text style={[styles.tableCol, { flex: 2 }]}>Item</Text>
-                <Text style={[styles.tableCol, { flex: 1, textAlign: 'center' }]}>Qty</Text>
-                <Text style={[styles.tableCol, { flex: 1.5, textAlign: 'right' }]}>Harga</Text>
-              </View>
-
-              {orderItems.map((item, index) => (
-                <View key={index} style={styles.tableRow}>
-                  <Text style={[styles.tableText, { flex: 2 }]}>{item.name}</Text>
-                  <Text style={[styles.tableText, { flex: 1, textAlign: 'center' }]}>{item.qty}</Text>
-                  <Text style={[styles.tableText, { flex: 1.5, textAlign: 'right' }]}>
-                    Rp {item.price.toLocaleString('id-ID')}
-                  </Text>
-                </View>
-              ))}
-
-              <View style={styles.totalRow}>
-                <Text style={styles.totalLabel}>Total</Text>
-                <Text style={styles.totalValue}>Rp {totalPrice.toLocaleString('id-ID')}</Text>
-              </View>
-
-              {/* Pilih Metode Pembayaran */}
-              <Text style={[styles.sectionTitle, { marginTop: 20 }]}>Metode Pembayaran</Text>
-              <View style={styles.methodGrid}>
-                {/* Tunai */}
-                <TouchableOpacity
-                  style={[styles.methodCard, paymentMethod === 'Tunai' && styles.methodCardActive]}
-                  onPress={() => setPaymentMethod('Tunai')}
-                >
-                  <MaterialCommunityIcons
-                    name="wallet-outline"
-                    size={28}
-                    color={paymentMethod === 'Tunai' ? '#fff' : '#444'}
-                  />
-                  <Text style={[styles.methodText, paymentMethod === 'Tunai' && styles.methodTextActive]}>
-                    Tunai
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
                   </Text>
                 </TouchableOpacity>
 
                 {/* QRIS */}
                 <TouchableOpacity
-<<<<<<< HEAD
                   style={[
                     styles.methodButton,
                     paymentMethod === 'QRIS' && styles.methodButtonActive,
@@ -485,15 +345,10 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                     setCashInput(totalPrice.toString());
                   }}
                   activeOpacity={0.75}
-=======
-                  style={[styles.methodCard, paymentMethod === 'QRIS' && styles.methodCardActive]}
-                  onPress={() => setPaymentMethod('QRIS')}
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
                 >
                   <MaterialCommunityIcons
                     name="qrcode-scan"
                     size={24}
-<<<<<<< HEAD
                     color={paymentMethod === 'QRIS' ? '#FFFFFF' : '#8D7B70'}
                   />
                   <Text
@@ -503,18 +358,12 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                         styles.methodButtonTextActive,
                     ]}
                   >
-=======
-                    color={paymentMethod === 'QRIS' ? '#fff' : '#444'}
-                  />
-                  <Text style={[styles.methodText, paymentMethod === 'QRIS' && styles.methodTextActive]}>
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
                     QRIS
                   </Text>
                 </TouchableOpacity>
 
                 {/* E-Wallet */}
                 <TouchableOpacity
-<<<<<<< HEAD
                   style={[
                     styles.methodButton,
                     paymentMethod === 'E-Wallet' && styles.methodButtonActive,
@@ -537,34 +386,22 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                         styles.methodButtonTextActive,
                     ]}
                   >
-=======
-                  style={[styles.methodCard, paymentMethod === 'E-Wallet' && styles.methodCardActive]}
-                  onPress={() => setPaymentMethod('E-Wallet')}
-                >
-                  <MaterialCommunityIcons
-                    name="cellphone-text"
-                    size={26}
-                    color={paymentMethod === 'E-Wallet' ? '#fff' : '#444'}
-                  />
-                  <Text style={[styles.methodText, paymentMethod === 'E-Wallet' && styles.methodTextActive]}>
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
                     E-Wallet
                   </Text>
                 </TouchableOpacity>
               </View>
 
-<<<<<<< HEAD
               {/* TAMPILAN DINAMIS PILIHAN METODE */}
               {paymentMethod === 'Tunai' ? (
                 <View style={styles.cashSummaryBanner}>
                   <Text style={styles.cashBannerHint}>
-                    Masukkan jumlah uang tunai yang diberikan pelanggan di numpad sebelah kanan:
+                    Masukkan jumlah uang tunai pelanggan di numpad sebelah kanan:
                   </Text>
                 </View>
               ) : paymentMethod === 'QRIS' ? (
                 <View style={styles.qrisContainer}>
                   <View style={styles.qrisQrBox}>
-                    <Ionicons name="qr-code" size={100} color="#2C1810" />
+                    <Ionicons name="qr-code" size={80} color="#2C1810" />
                   </View>
                   <Text style={styles.qrisPromptTitle}>
                     Pindai Kode QRIS di Meja Kasir
@@ -616,12 +453,12 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
             ]}
           >
             <View style={styles.keypadCard}>
-              {/* STATUS JUMLAH BAYAR (BAYARNYA BERAPA) */}
+              {/* STATUS JUMLAH BAYAR */}
               <View style={styles.amountDisplayBox}>
                 <Text style={styles.amountDisplayLabel}>
                   {paymentMethod === 'Tunai'
-                    ? 'Uang Tunai yang Dibayarkan (Bayarnya Berapa):'
-                    : 'Nominal Tagihan Pas (Bayarnya Berapa):'}
+                    ? 'Uang Tunai yang Dibayarkan:'
+                    : 'Nominal Tagihan Pas:'}
                 </Text>
                 <Text style={styles.amountDisplayText}>
                   {formatCurrency(paymentMethod === 'Tunai' ? numericCash : totalPrice)}
@@ -666,7 +503,6 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
               {/* NUMPAD HANYA UNTUK TUNAI */}
               {paymentMethod === 'Tunai' ? (
                 <>
-                  {/* Quick Cash Suggestions */}
                   <View style={styles.quickCashRow}>
                     <TouchableOpacity
                       style={styles.quickCashPill}
@@ -694,7 +530,6 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                     </TouchableOpacity>
                   </View>
 
-                  {/* 3x4 Numpad Keypad */}
                   <View style={styles.numpadGrid}>
                     {numpadKeys.map((key) => (
                       <TouchableOpacity
@@ -722,16 +557,16 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
                     Konfirmasi Pembayaran Digital
                   </Text>
                   <Text style={styles.digitalInstructionDesc}>
-                    Pastikan pelanggan telah menyelesaikan scan/transfer sebesar{' '}
-                    <Text style={{ fontWeight: '800', color: '#C62828' }}>
+                    Pastikan pelanggan telah menyelesaikan transfer sebesar{' '}
+                    <Text style={{ fontWeight: '800', color: '#2C1810' }}>
                       {formatCurrency(totalPrice)}
                     </Text>
-                    . Lalu tekan tombol Bayar di bawah untuk menerbitkan Struk Transaksi.
+                    . Lalu tekan tombol Konfirmasi di bawah.
                   </Text>
                 </View>
               )}
 
-              {/* TOMBOL BAYAR -> LANGSUNG CETAK STRUK */}
+              {/* TOMBOL BAYAR */}
               <TouchableOpacity
                 style={styles.payButton}
                 onPress={handleProcessPayment}
@@ -749,111 +584,12 @@ export default function PaymentModal({ visible, onClose, transactionData, onSucc
             </View>
           </View>
         </ScrollView>
-=======
-              {/* Jumlah Bayar Input */}
-              <Text style={styles.inputLabel}>Jumlah Bayar</Text>
-              <View style={styles.inputBox}>
-                <Text style={styles.currencyPrefix}>Rp</Text>
-                <TextInput
-                  style={styles.textInput}
-                  value={parseInt(cashInput || '0', 10).toLocaleString('id-ID')}
-                  editable={false}
-                />
-              </View>
-            </ScrollView>
-
-            {/* Sisi Kanan: Keypad / Numpad Angka */}
-            <View style={styles.rightColumn}>
-              <View style={styles.numpadContainer}>
-                {numpadKeys.map((key, i) => (
-                  <TouchableOpacity
-                    key={i}
-                    style={styles.numpadBtn}
-                    onPress={() => handleNumpad(key)}
-                  >
-                    {key === 'DEL' ? (
-                      <MaterialCommunityIcons name="backspace-outline" size={24} color="#333" />
-                    ) : (
-                      <Text style={styles.numpadText}>{key}</Text>
-                    )}
-                  </TouchableOpacity>
-                ))}
-              </View>
-
-              <TouchableOpacity style={styles.payBtn} onPress={handlePay}>
-                <Ionicons name="receipt-outline" size={22} color="#fff" style={{ marginRight: 8 }} />
-                <Text style={styles.payBtnText}>Bayar</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ) : (
-          /* TAMPILAN STRUK PEMBAYARAN / STRUK TRANSAKSI (SESUAI GAMBAR) */
-          <ScrollView contentContainerStyle={styles.receiptContainer}>
-            <View style={styles.receiptCard}>
-              <View style={styles.receiptHeader}>
-                <MaterialCommunityIcons name="bowl-mix" size={28} color="#222" />
-                <Text style={styles.receiptTitle}>Seblak Prasmanan</Text>
-              </View>
-
-              <View style={styles.receiptDivider} />
-
-              <View style={styles.receiptInfoRow}>
-                <Text style={styles.receiptInfoLabel}>No. Transaksi</Text>
-                <Text style={styles.receiptInfoValue}>: {orderNumber}</Text>
-              </View>
-              <View style={styles.receiptInfoRow}>
-                <Text style={styles.receiptInfoLabel}>Meja</Text>
-                <Text style={styles.receiptInfoValue}>: {tableNo.replace('Meja ', '')}</Text>
-              </View>
-              <View style={styles.receiptInfoRow}>
-                <Text style={styles.receiptInfoLabel}>Tanggal</Text>
-                <Text style={styles.receiptInfoValue}>: 16/10/2025 {orderTime}</Text>
-              </View>
-
-              <View style={styles.receiptDivider} />
-
-              {orderItems.map((item, idx) => (
-                <View key={idx} style={styles.receiptItemRow}>
-                  <Text style={[styles.receiptItemText, { flex: 2 }]}>{item.name}</Text>
-                  <Text style={[styles.receiptItemText, { flex: 0.5, textAlign: 'center' }]}>
-                    {item.qty}
-                  </Text>
-                  <Text style={[styles.receiptItemText, { flex: 1.5, textAlign: 'right' }]}>
-                    {(item.price * item.qty).toLocaleString('id-ID')}
-                  </Text>
-                </View>
-              ))}
-
-              <View style={styles.receiptDivider} />
-
-              <View style={styles.receiptTotalRow}>
-                <Text style={styles.receiptTotalLabel}>Total</Text>
-                <Text style={styles.receiptTotalValue}>{totalPrice.toLocaleString('id-ID')}</Text>
-              </View>
-              <View style={styles.receiptTotalRow}>
-                <Text style={styles.receiptTotalLabel}>Metode</Text>
-                <Text style={styles.receiptTotalValue}>: {paymentMethod}</Text>
-              </View>
-
-              <View style={{ marginTop: 20, alignItems: 'center' }}>
-                <Text style={styles.thankYouText}>Terima kasih 😊</Text>
-                <Text style={styles.thankYouSub}>Selamat menikmati!</Text>
-              </View>
-            </View>
-
-            <TouchableOpacity style={styles.doneBtn} onPress={onClose}>
-              <Text style={styles.doneBtnText}>Selesai & Transaksi Baru</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        )}
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
       </SafeAreaView>
     </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
   safeContainer: {
     flex: 1,
     backgroundColor: '#F8F5F2',
@@ -884,23 +620,23 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   avatarCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#EDE5DF',
     overflow: 'hidden',
-    backgroundColor: '#FFE0B2',
   },
   avatarImg: {
     width: '100%',
     height: '100%',
   },
   profileName: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '700',
     color: '#2C1810',
   },
   profileRole: {
-    fontSize: 10,
+    fontSize: 11,
     color: '#8D7B70',
   },
   mainScrollView: {
@@ -915,118 +651,82 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   leftColumn: {
-    width: '100%',
+    flex: 1,
   },
   rightColumn: {
-    width: '100%',
+    flex: 1,
   },
   totalHighlightCard: {
-    backgroundColor: '#52141D',
-    borderRadius: 14,
+    backgroundColor: '#2C1810',
+    borderRadius: 16,
     padding: 16,
-    elevation: 3,
-    shadowColor: '#52141D',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.25,
-    shadowRadius: 6,
   },
   totalHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
   },
   totalBadgeLabel: {
-    color: '#FFD9D9',
     fontSize: 11,
-    fontWeight: '800',
-    letterSpacing: 0.5,
+    fontWeight: '700',
+    color: '#D7CCC8',
+    letterSpacing: 1,
   },
   totalAmountBig: {
-    color: '#FFFFFF',
     fontSize: 26,
     fontWeight: '900',
-    marginTop: 2,
-    letterSpacing: 0.3,
+    color: '#FFFFFF',
+    marginTop: 4,
   },
   orderMetaBadge: {
-    backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    borderRadius: 10,
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    paddingHorizontal: 10,
     paddingVertical: 6,
-    paddingHorizontal: 12,
+    borderRadius: 8,
     alignItems: 'flex-end',
   },
   orderMetaText: {
+    fontSize: 12,
+    fontWeight: '700',
     color: '#FFFFFF',
-    fontSize: 13,
-    fontWeight: '800',
   },
   orderMetaTable: {
-    color: '#F4C2C6',
     fontSize: 11,
-    fontWeight: '600',
-    marginTop: 1,
+    color: '#D7CCC8',
   },
   orderDetailSubRow: {
     marginTop: 12,
-    paddingTop: 10,
     borderTopWidth: 1,
-    borderTopColor: 'rgba(255, 255, 255, 0.12)',
+    borderTopColor: 'rgba(255,255,255,0.1)',
+    paddingTop: 8,
   },
   orderDetailSubText: {
-    color: '#F4D4D8',
-    fontSize: 11,
-    fontWeight: '500',
+    fontSize: 12,
+    color: '#D7CCC8',
   },
   orderNotesText: {
-    color: '#FFE0B2',
-    fontSize: 11,
-    fontWeight: '600',
+    fontSize: 12,
+    color: '#FFCC80',
     marginTop: 2,
   },
   cardBox: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: '#EDE5DF',
-    elevation: 2,
-    shadowColor: '#4A2A22',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
-  },
-  sectionHeadingRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 10,
-    flexWrap: 'wrap',
-    gap: 6,
   },
   boxTitle: {
     fontSize: 14,
     fontWeight: '800',
     color: '#2C1810',
-  },
-  activeMethodIndicator: {
-    fontSize: 11,
-    fontWeight: '700',
-    color: '#C62828',
-    backgroundColor: '#FDECEC',
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 6,
+    marginBottom: 10,
   },
   tableHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 8,
-    paddingVertical: 7,
+    paddingBottom: 6,
     borderBottomWidth: 1,
-    borderBottomColor: '#EFE7E2',
-    backgroundColor: '#FCFAF8',
-    paddingHorizontal: 8,
-    borderRadius: 6,
+    borderBottomColor: '#F0E9E4',
   },
   thText: {
     fontSize: 11,
@@ -1037,75 +737,71 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: 8,
-    paddingHorizontal: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#F5ECE6',
+    borderBottomColor: '#F8F5F2',
   },
   tdText: {
+    fontSize: 13,
+    color: '#2C1810',
+  },
+  sectionHeadingRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  activeMethodIndicator: {
     fontSize: 12,
-    color: '#3D2820',
+    fontWeight: '700',
+    color: '#8D7B70',
   },
   methodsRow: {
     flexDirection: 'row',
     gap: 8,
-    marginBottom: 10,
+    marginTop: 6,
   },
   methodButton: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 10,
-    backgroundColor: '#FAF5F1',
+    backgroundColor: '#F8F5F2',
     borderWidth: 1,
     borderColor: '#EDE5DF',
+    borderRadius: 12,
+    paddingVertical: 12,
     alignItems: 'center',
-    justifyContent: 'center',
     gap: 4,
   },
   methodButtonActive: {
-    backgroundColor: '#C62828',
-    borderColor: '#C62828',
-    elevation: 2,
-    shadowColor: '#C62828',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
+    backgroundColor: '#2C1810',
+    borderColor: '#2C1810',
   },
   methodButtonText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
-    color: '#7E6E67',
-    textAlign: 'center',
+    color: '#8D7B70',
   },
   methodButtonTextActive: {
     color: '#FFFFFF',
   },
   cashSummaryBanner: {
-    backgroundColor: '#FAF5F1',
-    borderRadius: 8,
+    marginTop: 12,
+    backgroundColor: '#F8F5F2',
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
+    borderRadius: 8,
   },
   cashBannerHint: {
-    fontSize: 11,
+    fontSize: 12,
     color: '#6F5C53',
-    lineHeight: 16,
+    textAlign: 'center',
   },
   qrisContainer: {
+    marginTop: 14,
     alignItems: 'center',
-    paddingVertical: 12,
-    backgroundColor: '#FAF5F1',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
+    padding: 10,
   },
   qrisQrBox: {
-    padding: 8,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    marginBottom: 6,
-    borderWidth: 1,
-    borderColor: '#EDE5DF',
+    backgroundColor: '#F8F5F2',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 10,
   },
   qrisPromptTitle: {
     fontSize: 13,
@@ -1115,101 +811,84 @@ const styles = StyleSheet.create({
   qrisPromptSub: {
     fontSize: 11,
     color: '#8D7B70',
-    marginTop: 2,
     textAlign: 'center',
+    marginTop: 2,
   },
   ewalletContainer: {
-    paddingVertical: 12,
-    backgroundColor: '#FAF5F1',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
-    paddingHorizontal: 10,
+    marginTop: 14,
   },
   ewalletHeading: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
-    color: '#4A3028',
+    color: '#6F5C53',
     marginBottom: 8,
   },
   ewalletPillsRow: {
     flexDirection: 'row',
     gap: 8,
-    flexWrap: 'wrap',
   },
   ewalletPill: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    flex: 1,
+    paddingVertical: 8,
+    alignItems: 'center',
+    backgroundColor: '#F8F5F2',
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#EDE5DF',
   },
   ewalletPillActive: {
-    backgroundColor: '#C62828',
-    borderColor: '#C62828',
+    backgroundColor: '#D7CCC8',
+    borderColor: '#8D7B70',
   },
   ewalletPillText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
     color: '#6F5C53',
   },
   ewalletPillTextActive: {
-    color: '#FFFFFF',
+    color: '#2C1810',
   },
   keypadCard: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 14,
+    borderRadius: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: '#EDE5DF',
-    elevation: 2,
-    shadowColor: '#4A2A22',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 5,
   },
   amountDisplayBox: {
-    backgroundColor: '#FAF5F1',
-    borderRadius: 10,
+    backgroundColor: '#F8F5F2',
     padding: 12,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
-    marginBottom: 8,
+    borderRadius: 10,
   },
   amountDisplayLabel: {
     fontSize: 11,
     color: '#8D7B70',
     fontWeight: '600',
-    marginBottom: 2,
   },
   amountDisplayText: {
     fontSize: 20,
     fontWeight: '900',
     color: '#2C1810',
+    marginTop: 2,
   },
   changeBox: {
+    marginTop: 10,
+    padding: 12,
+    borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    marginBottom: 10,
   },
   changeBoxSuccess: {
     backgroundColor: '#E8F5E9',
-    borderColor: '#C8E6C9',
   },
   changeBoxShort: {
     backgroundColor: '#FFEBEE',
-    borderColor: '#FFCDD2',
   },
   changeBoxLabel: {
     fontSize: 12,
-    color: '#4A3028',
     fontWeight: '700',
+    color: '#2C1810',
   },
   changeBoxValue: {
     fontSize: 15,
@@ -1217,235 +896,88 @@ const styles = StyleSheet.create({
     color: '#2E7D32',
   },
   changeBoxDigital: {
+    marginTop: 10,
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: '#E8F5E9',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    backgroundColor: '#E8F5E9',
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#C8E6C9',
-    marginBottom: 12,
   },
   changeBoxDigitalText: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: '700',
     color: '#2E7D32',
   },
   quickCashRow: {
     flexDirection: 'row',
-    gap: 6,
-    marginBottom: 10,
+    gap: 8,
+    marginTop: 12,
   },
   quickCashPill: {
     flex: 1,
-    paddingVertical: 7,
-    borderRadius: 8,
-    backgroundColor: '#FDECEC',
-    borderWidth: 1,
-    borderColor: '#F8B4B4',
+    backgroundColor: '#F8F5F2',
+    paddingVertical: 8,
     alignItems: 'center',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#EDE5DF',
   },
   quickCashText: {
     fontSize: 11,
-    fontWeight: '800',
-    color: '#C62828',
+    fontWeight: '700',
+    color: '#2C1810',
   },
   numpadGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
-    justifyContent: 'space-between',
-    marginBottom: 14,
+    marginTop: 12,
   },
   numKey: {
-    width: '31%',
-    height: 48,
+    width: '31.5%',
+    backgroundColor: '#F8F5F2',
+    paddingVertical: 12,
+    alignItems: 'center',
     borderRadius: 10,
-    backgroundColor: '#FAF5F1',
     borderWidth: 1,
     borderColor: '#EDE5DF',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   numKeyText: {
-    fontSize: 18,
-    fontWeight: '800',
+    fontSize: 16,
+    fontWeight: '700',
     color: '#2C1810',
   },
   digitalInstructionBox: {
-    backgroundColor: '#FAF5F1',
+    marginTop: 12,
+    padding: 16,
+    backgroundColor: '#F8F5F2',
     borderRadius: 10,
-    padding: 14,
-    marginBottom: 14,
-    borderWidth: 1,
-    borderColor: '#EFE7E2',
   },
   digitalInstructionTitle: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: '800',
     color: '#2C1810',
     marginBottom: 4,
   },
   digitalInstructionDesc: {
-    fontSize: 11,
+    fontSize: 12,
     color: '#6F5C53',
-    lineHeight: 16,
+    lineHeight: 18,
   },
   payButton: {
+    backgroundColor: '#2C1810',
+    marginTop: 16,
+    paddingVertical: 14,
+    borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: '#C62828',
-    borderRadius: 10,
-    paddingVertical: 14,
-    elevation: 3,
-    shadowColor: '#C62828',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.35,
-    shadowRadius: 6,
   },
   payButtonText: {
     color: '#FFFFFF',
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '800',
-    letterSpacing: 0.4,
   },
 });
-=======
-  container: { flex: 1, backgroundColor: '#f7f8fa' },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 12,
-    backgroundColor: '#fff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-  },
-  backButton: { flexDirection: 'row', alignItems: 'center' },
-  headerTitle: { fontSize: 18, fontWeight: 'bold', marginLeft: 10, color: '#222' },
-  profileSection: { flexDirection: 'row', alignItems: 'center' },
-  profileName: { fontSize: 14, fontWeight: 'bold', color: '#222' },
-  profileRole: { fontSize: 12, color: '#777' },
-
-  contentLayout: { flex: 1, flexDirection: 'row', padding: 16 },
-  leftColumn: { flex: 1.2, backgroundColor: '#fff', borderRadius: 12, padding: 16, marginRight: 16 },
-  rightColumn: { flex: 0.8, justifyContent: 'space-between' },
-
-  sectionTitle: { fontSize: 16, fontWeight: 'bold', color: '#222', marginBottom: 12 },
-  rowDetail: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 6 },
-  labelDetail: { color: '#666', fontSize: 14 },
-  valueDetail: { fontWeight: '600', fontSize: 14, color: '#222' },
-
-  tableHeader: {
-    flexDirection: 'row',
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    paddingVertical: 8,
-    marginTop: 10,
-  },
-  tableCol: { color: '#888', fontSize: 13, fontWeight: '600' },
-  tableRow: { flexDirection: 'row', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#f5f5f5' },
-  tableText: { fontSize: 14, color: '#333' },
-
-  totalRow: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 12 },
-  totalLabel: { fontSize: 16, fontWeight: 'bold', color: '#222' },
-  totalValue: { fontSize: 18, fontWeight: 'bold', color: '#222' },
-
-  methodGrid: { flexDirection: 'row', justifyContent: 'space-between', gap: 8, marginBottom: 16 },
-  methodCard: {
-    flex: 1,
-    paddingVertical: 12,
-    backgroundColor: '#f1f3f5',
-    borderRadius: 10,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-  },
-  methodCardActive: { backgroundColor: '#d32f2f', borderColor: '#d32f2f' },
-  methodText: { fontSize: 13, fontWeight: '600', color: '#444', marginTop: 4 },
-  methodTextActive: { color: '#fff' },
-
-  inputLabel: { fontSize: 14, color: '#666', marginBottom: 6 },
-  inputBox: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    paddingHorizontal: 12,
-    height: 44,
-  },
-  currencyPrefix: { fontSize: 16, fontWeight: '600', color: '#333', marginRight: 6 },
-  textInput: { fontSize: 16, fontWeight: 'bold', color: '#222', flex: 1 },
-
-  // Numpad Styles
-  numpadContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    gap: 8,
-  },
-  numpadBtn: {
-    width: '31%',
-    height: 60,
-    backgroundColor: '#fff',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 1,
-    shadowColor: '#000',
-    shadowOpacity: 0.05,
-    shadowRadius: 2,
-  },
-  numpadText: { fontSize: 20, fontWeight: 'bold', color: '#222' },
-  payBtn: {
-    backgroundColor: '#d32f2f',
-    height: 50,
-    borderRadius: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 12,
-  },
-  payBtnText: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
-
-  // Receipt Styles
-  receiptContainer: { padding: 24, alignItems: 'center' },
-  receiptCard: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: '#fff',
-    borderRadius: 8,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderStyle: 'dashed',
-  },
-  receiptHeader: { alignItems: 'center', marginBottom: 12 },
-  receiptTitle: { fontSize: 16, fontWeight: 'bold', marginTop: 4, color: '#222' },
-  receiptDivider: { height: 1, backgroundColor: '#ddd', marginVertical: 12 },
-  receiptInfoRow: { flexDirection: 'row', marginBottom: 4 },
-  receiptInfoLabel: { width: 90, fontSize: 13, color: '#555' },
-  receiptInfoValue: { fontSize: 13, color: '#222', fontWeight: '500' },
-  receiptItemRow: { flexDirection: 'row', marginVertical: 4 },
-  receiptItemText: { fontSize: 13, color: '#333' },
-  receiptTotalRow: { flexDirection: 'row', justifyContent: 'space-between', marginVertical: 2 },
-  receiptTotalLabel: { fontSize: 14, fontWeight: 'bold', color: '#222' },
-  receiptTotalValue: { fontSize: 14, fontWeight: 'bold', color: '#222' },
-  thankYouText: { fontSize: 13, fontWeight: 'bold', color: '#333' },
-  thankYouSub: { fontSize: 12, color: '#666', marginTop: 2 },
-  doneBtn: {
-    marginTop: 20,
-    backgroundColor: '#d32f2f',
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-  },
-  doneBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 15 },
-});
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa

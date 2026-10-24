@@ -17,11 +17,7 @@ export const TOPPING_ITEMS = [
     harga: 1000,
     berat: '100 gr',
     emoji: '🍘',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1627308595229-7830a5c91f9f?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.Ftey11XsSM8_YkVhFhDWCAHaHa?w=202&h=202&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-2',
@@ -30,11 +26,7 @@ export const TOPPING_ITEMS = [
     harga: 1000,
     berat: '50 gr',
     emoji: '🍝',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.gUVmUwiwWztShUxOlTkROQHaE8?w=300&h=201&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-3',
@@ -43,11 +35,7 @@ export const TOPPING_ITEMS = [
     harga: 2000,
     berat: '50 gr',
     emoji: '🌭',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1585325701165-351af916e581?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.PQGcSFE5jE4KsIOoZGpGKgHaE9?w=264&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-4',
@@ -56,11 +44,7 @@ export const TOPPING_ITEMS = [
     harga: 2000,
     berat: '50 gr',
     emoji: '🧆',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1529042410759-befb1204b468?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.Ffpnnt7eWxe75cyAwWS4rwHaFj?w=209&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-5',
@@ -69,11 +53,7 @@ export const TOPPING_ITEMS = [
     harga: 2000,
     berat: '50 gr',
     emoji: '🍗',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.ULTLNBiOtG7p_PGf9IVdaQHaE8?w=263&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-6',
@@ -91,11 +71,7 @@ export const TOPPING_ITEMS = [
     harga: 1000,
     berat: '50 gr',
     emoji: '🥬',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.8A847vvpQDNHdHV4FTO7NwHaEK?w=312&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-8',
@@ -104,11 +80,7 @@ export const TOPPING_ITEMS = [
     harga: 1000,
     berat: '50 gr',
     emoji: '🧊',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.TDrrf5YOVdNf_ObAJSbw8wHaFX?w=271&h=195&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-9',
@@ -117,11 +89,7 @@ export const TOPPING_ITEMS = [
     harga: 2500,
     berat: '1 pcs',
     emoji: '🥟',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1496116218417-1a781b1c416c?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.5LSMNaZKZ-LKY6xk1o2sewHaFF?w=235&h=180&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: 'top-10',
@@ -130,7 +98,6 @@ export const TOPPING_ITEMS = [
     harga: 2500,
     berat: '40 gr',
     emoji: '🍄',
-<<<<<<< HEAD
     image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=300&auto=format&fit=crop&q=80',
   },
   {
@@ -150,9 +117,6 @@ export const TOPPING_ITEMS = [
     berat: '2 pcs',
     emoji: '🍘',
     image: 'https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=300&auto=format&fit=crop&q=80',
-=======
-    image: 'https://th.bing.com/th/id/OIP.0HMevEJC6XVeXoZt_N0D0QHaHa?w=209&h=188&c=7&r=0&o=7&dpr=2&pid=1.7&rm=3',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
 ];
 
@@ -186,20 +150,11 @@ export const INITIAL_ORDERS = [
     total: 15000,
     status: 'Diproses',
     details: [
-<<<<<<< HEAD
       { nama: 'Kerupuk', qty: 2, berat: '100 gr', harga: 2000 },
       { nama: 'Makaroni', qty: 2, berat: '50 gr', harga: 2000 },
       { nama: 'Telur', qty: 1, berat: '1 butir', harga: 1500 },
       { nama: 'Ceker', qty: 2, berat: '50 gr', harga: 4000 },
       { nama: 'Bakso', qty: 2, berat: '50 gr', harga: 4000 },
-=======
-      { nama: 'Kerupuk', qty: 1, berat: '100 gr', harga: 1000 },
-      { nama: 'Makaroni', qty: 1, berat: '50 gr', harga: 1000 },
-      { nama: 'Telur', qty: 1, berat: '1 butir', harga: 1500 },
-      { nama: 'Ceker', qty: 2, berat: '100 gr', harga: 4000 },
-      { nama: 'Bakso', qty: 2, berat: '100 gr', harga: 4000 },
-      { nama: 'Sosis', qty: 1, berat: '50 gr', harga: 2000 },
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
       { nama: 'Sayur', qty: 1, berat: '50 gr', harga: 1500 },
     ],
     kuah: 'Original',
@@ -214,29 +169,17 @@ export const INITIAL_ORDERS = [
     total: 23000,
     status: 'Diproses',
     details: [
-<<<<<<< HEAD
       { nama: 'Bakso', qty: 3, berat: '50 gr', harga: 6000 },
       { nama: 'Sosis', qty: 2, berat: '50 gr', harga: 4000 },
       { nama: 'Dumpling Keju', qty: 2, berat: '1 pcs', harga: 5000 },
       { nama: 'Kerupuk', qty: 2, berat: '100 gr', harga: 2000 },
       { nama: 'Makaroni', qty: 2, berat: '50 gr', harga: 2000 },
-=======
-      { nama: 'Bakso', qty: 3, berat: '150 gr', harga: 6000 },
-      { nama: 'Sosis', qty: 2, berat: '100 gr', harga: 4000 },
-      { nama: 'Dumpling Keju', qty: 2, berat: '2 pcs', harga: 5000 },
-      { nama: 'Kerupuk', qty: 2, berat: '200 gr', harga: 2000 },
-      { nama: 'Makaroni', qty: 2, berat: '100 gr', harga: 2000 },
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
       { nama: 'Telur', qty: 1, berat: '1 butir', harga: 1500 },
       { nama: 'Jamur Enoki', qty: 1, berat: '40 gr', harga: 2500 },
     ],
     kuah: 'Tom Yam',
     pedas: 3,
-<<<<<<< HEAD
     metode: 'Tunai',
-=======
-    metode: 'QRIS',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: '#003',
@@ -261,7 +204,6 @@ export const INITIAL_ORDERS = [
     total: 12000,
     status: 'Siap Bayar',
     details: [
-<<<<<<< HEAD
       { nama: 'Kerupuk', qty: 2, berat: '100 gr', harga: 2000 },
       { nama: 'Sosis', qty: 2, berat: '50 gr', harga: 4000 },
       { nama: 'Bakso', qty: 2, berat: '50 gr', harga: 4000 },
@@ -270,16 +212,6 @@ export const INITIAL_ORDERS = [
     kuah: 'Suki',
     pedas: 1,
     metode: 'E-Wallet',
-=======
-      { nama: 'Kerupuk', qty: 2, berat: '200 gr', harga: 2000 },
-      { nama: 'Sosis', qty: 2, berat: '100 gr', harga: 4000 },
-      { nama: 'Bakso', qty: 2, berat: '100 gr', harga: 4000 },
-      { nama: 'Sayur', qty: 2, berat: '100 gr', harga: 2000 },
-    ],
-    kuah: 'Suki',
-    pedas: 1,
-    metode: 'Tunai',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   },
   {
     id: '#005',
@@ -287,7 +219,6 @@ export const INITIAL_ORDERS = [
     table: 'Meja 4',
     items: '1 Paket + Telur',
     total: 28000,
-<<<<<<< HEAD
     status: 'Diproses',
     details: [
       { nama: 'Kerupuk', qty: 2, berat: '100 gr', harga: 2000 },
@@ -298,24 +229,11 @@ export const INITIAL_ORDERS = [
       { nama: 'Dumpling Keju', qty: 2, berat: '1 pcs', harga: 5000 },
       { nama: 'Tahu', qty: 2, berat: '50 gr', harga: 2000 },
       { nama: 'Sayur', qty: 2, berat: '50 gr', harga: 2000 },
-=======
-    status: 'Selesai',
-    details: [
-      { nama: 'Kerupuk', qty: 2, berat: '200 gr', harga: 2000 },
-      { nama: 'Makaroni', qty: 2, berat: '100 gr', harga: 2000 },
-      { nama: 'Bakso', qty: 3, berat: '150 gr', harga: 6000 },
-      { nama: 'Ceker', qty: 3, berat: '150 gr', harga: 6000 },
-      { nama: 'Telur', qty: 2, berat: '2 butir', harga: 3000 },
-      { nama: 'Dumpling Keju', qty: 2, berat: '2 pcs', harga: 5000 },
-      { nama: 'Tahu', qty: 2, berat: '100 gr', harga: 2000 },
-      { nama: 'Sayur', qty: 2, berat: '100 gr', harga: 2000 },
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     ],
     kuah: 'Original',
     pedas: 4,
     metode: 'Tunai',
   },
-<<<<<<< HEAD
   {
     id: '#006',
     time: '08:40',
@@ -335,8 +253,6 @@ export const INITIAL_ORDERS = [
     pedas: 5,
     metode: 'Tunai',
   },
-=======
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
 ];
 
 export const INITIAL_TRANSACTIONS = [
@@ -348,11 +264,7 @@ export const INITIAL_TRANSACTIONS = [
     item: '2 Topping + 1 Telur',
     total: 15000,
     metode: 'Tunai',
-<<<<<<< HEAD
     kasir: 'Siti Aisyah',
-=======
-    kasir: 'Tata',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     status: 'Lunas',
   },
   {
@@ -363,11 +275,7 @@ export const INITIAL_TRANSACTIONS = [
     item: '3 Topping + 1 Sosis',
     total: 23000,
     metode: 'Tunai',
-<<<<<<< HEAD
     kasir: 'Siti Aisyah',
-=======
-    kasir: 'Tata',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     status: 'Lunas',
   },
   {
@@ -378,11 +286,7 @@ export const INITIAL_TRANSACTIONS = [
     item: '1 Paket (Topping Lengkap)',
     total: 32000,
     metode: 'QRIS',
-<<<<<<< HEAD
     kasir: 'Siti Aisyah',
-=======
-    kasir: 'Tata',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     status: 'Lunas',
   },
   {
@@ -393,11 +297,7 @@ export const INITIAL_TRANSACTIONS = [
     item: '2 Topping',
     total: 12000,
     metode: 'E-Wallet',
-<<<<<<< HEAD
     kasir: 'Siti Aisyah',
-=======
-    kasir: 'Tata',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     status: 'Lunas',
   },
   {
@@ -408,7 +308,6 @@ export const INITIAL_TRANSACTIONS = [
     item: '1 Paket + Telur',
     total: 28000,
     metode: 'Tunai',
-<<<<<<< HEAD
     kasir: 'Siti Aisyah',
     status: 'Lunas',
   },
@@ -454,9 +353,6 @@ export const INITIAL_TRANSACTIONS = [
     total: 35000,
     metode: 'E-Wallet',
     kasir: 'Siti Aisyah',
-=======
-    kasir: 'Tata',
->>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     status: 'Lunas',
   },
 ];
