@@ -42,3 +42,11 @@ Dewi
 Tugas Bersama :
 1. Diskusi penentuan tema (Notulen  bersama)
 Manajemen Kedai Seblak
+
+Bukti Wawancara:
+https://drive.google.com/drive/folders/1QJAz01e1GnNtQZyxFPKLIcbxwteOWv7K
+
+Wireframe Project:
+https://www.figma.com/design/MYYuWpDlre1qYXm8VaG1JF/Untitled?node-id=0-1&t=3mO8FJCbHqfOA4Z5-1
+
+![alt text](Recording-2026-10-19-095956.gif)

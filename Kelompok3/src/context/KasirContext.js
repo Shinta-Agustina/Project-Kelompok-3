@@ -8,12 +8,17 @@ import {
 const KasirContext = createContext();
 
 export function KasirProvider({ children }) {
+<<<<<<< HEAD
   // Auth state - null by default to show Login screen, with quick 1-click entry
+=======
+  // Auth state
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   const [user, setUser] = useState(null);
 
   // Active navigation tab: 'Kasir', 'Pesanan Aktif', 'Riwayat Transaksi', 'Laporan'
   const [activeTab, setActiveTab] = useState('Kasir');
 
+<<<<<<< HEAD
   // POS Order builder state - pre-populated with items matching reference screen
   const [cart, setCart] = useState([
     { id: 'top-1', nama: 'Kerupuk', harga: 1000, berat: '100 gr', emoji: '🍘', qty: 1 },
@@ -23,6 +28,16 @@ export function KasirProvider({ children }) {
     { id: 'top-5', nama: 'Ceker',    harga: 1000, berat: '50 gr',  emoji: '🍗', qty: 1 },
   ]);
 
+=======
+  // POS Order builder state
+  const [cart, setCart] = useState([
+    { ...TOPPING_ITEMS[0], qty: 1 }, // Kerupuk
+    { ...TOPPING_ITEMS[1], qty: 1 }, // Makaroni
+    { ...TOPPING_ITEMS[2], qty: 1 }, // Sosis
+    { ...TOPPING_ITEMS[3], qty: 1 }, // Bakso
+    { ...TOPPING_ITEMS[4], qty: 1 }, // Ceker
+  ]);
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   const [selectedKuah, setSelectedKuah] = useState('Original');
   const [selectedLevel, setSelectedLevel] = useState(3);
   const [selectedMeja, setSelectedMeja] = useState('Meja 2');
@@ -34,6 +49,7 @@ export function KasirProvider({ children }) {
   const [transactions, setTransactions] = useState(INITIAL_TRANSACTIONS);
 
   // Auth actions
+<<<<<<< HEAD
   const login = (username, role = 'Kasir') => {
     const isOwner = role === 'Owner';
     setUser({
@@ -48,6 +64,13 @@ export function KasirProvider({ children }) {
     } else {
       setActiveTab('Kasir');
     }
+=======
+  const login = (username) => {
+    setUser({
+      name: username || 'Tata',
+      role: 'Kasir',
+    });
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   };
 
   const logout = () => {
@@ -102,9 +125,15 @@ export function KasirProvider({ children }) {
   };
 
   // Create new order & transaction
+<<<<<<< HEAD
   const checkoutOrder = (paymentMethod, cashAmount = 0, customData = null) => {
     const total = customData?.total ?? getTotalPrice();
     const orderNum = customData?.orderNo || `#00${orders.length + 1}`;
+=======
+  const checkoutOrder = (paymentMethod, cashAmount = 0) => {
+    const total = getTotalPrice();
+    const orderNum = `#00${orders.length + 1}`;
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     const now = new Date();
     const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(
       now.getMinutes()
@@ -113,26 +142,44 @@ export function KasirProvider({ children }) {
       now.getMonth() + 1
     ).padStart(2, '0')}/${now.getFullYear()}`;
 
+<<<<<<< HEAD
     const itemsSummary = customData?.items
       ? customData.items.map((i) => `${i.qty || 1}x ${i.nama || i.name}`).join(', ')
       : cart.map((item) => `${item.qty}x ${item.nama}`).join(', ');
+=======
+    const itemsSummary = cart
+      .map((item) => `${item.qty}x ${item.nama}`)
+      .join(', ');
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
 
     const newOrder = {
       id: orderNum,
       time: timeStr,
       date: dateStr,
+<<<<<<< HEAD
       table: customData?.tableNo || selectedMeja,
       items: itemsSummary || '1 Paket Seblak',
       total: total,
       status: 'Selesai',
       details: customData?.items || [...cart],
+=======
+      table: selectedMeja,
+      items: itemsSummary,
+      total: total,
+      status: 'Selesai',
+      details: [...cart],
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
       kuah: selectedKuah,
       pedas: selectedLevel,
       catatan: catatan,
       metode: paymentMethod,
       cashAmount: cashAmount,
       change: Math.max(0, cashAmount - total),
+<<<<<<< HEAD
       kasir: user?.name || 'Siti Aisyah',
+=======
+      kasir: user?.name || 'Tata',
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     };
 
     setOrders((prev) => [newOrder, ...prev]);
@@ -142,11 +189,19 @@ export function KasirProvider({ children }) {
       no: orderNum,
       waktu: timeStr,
       date: dateStr,
+<<<<<<< HEAD
       meja: customData?.tableNo || selectedMeja,
       item: itemsSummary || '1 Paket Seblak',
       total: total,
       metode: paymentMethod,
       kasir: user?.name || 'Siti Aisyah',
+=======
+      meja: selectedMeja,
+      item: itemsSummary,
+      total: total,
+      metode: paymentMethod,
+      kasir: user?.name || 'Tata',
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
       status: 'Lunas',
     };
 
@@ -158,7 +213,13 @@ export function KasirProvider({ children }) {
 
   const updateOrderStatus = (orderId, newStatus) => {
     setOrders((prev) =>
+<<<<<<< HEAD
       prev.map((o) => (o.id === orderId ? { ...o, status: newStatus } : o))
+=======
+      prev.map((order) =>
+        order.id === orderId ? { ...order, status: newStatus } : order
+      )
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
     );
   };
 
@@ -171,7 +232,10 @@ export function KasirProvider({ children }) {
         activeTab,
         setActiveTab,
         cart,
+<<<<<<< HEAD
         setCart,
+=======
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
         addToCart,
         updateCartQty,
         removeFromCart,
@@ -189,9 +253,13 @@ export function KasirProvider({ children }) {
         activeCategory,
         setActiveCategory,
         orders,
+<<<<<<< HEAD
         setOrders,
         transactions,
         setTransactions,
+=======
+        transactions,
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
         checkoutOrder,
         updateOrderStatus,
       }}
@@ -204,7 +272,11 @@ export function KasirProvider({ children }) {
 export function useKasir() {
   const context = useContext(KasirContext);
   if (!context) {
+<<<<<<< HEAD
     throw new Error('useKasir harus digunakan di dalam KasirProvider');
+=======
+    throw new Error('useKasir must be used within a KasirProvider');
+>>>>>>> 794bfd04fcae9c8b675ab857522e038b692438aa
   }
   return context;
 }
